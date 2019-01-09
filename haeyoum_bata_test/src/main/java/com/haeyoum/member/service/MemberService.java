@@ -84,6 +84,9 @@ public class MemberService {
     //세션에 저장할 유저데이터 생성 
     public User loginUser(Member member) {
     	//유저 접속시간 갱신
+    	if (dao.selectLog(member.getM_email()) == null) {
+    		dao.createLog(member.getM_email());
+    	}
     	dao.updateLog(member.getM_email());
 		return new User(member.getM_email(), true);
 	}
@@ -96,6 +99,9 @@ public class MemberService {
     
     //유저정보 변경
     public int updateInfo(MemberInfo memInfo) {
+    	if (dao.selectInfo(memInfo.getM_email()) == null) {
+    		dao.createInfo(memInfo);
+    	}
     	return dao.updateInfo(memInfo);
     }
     
