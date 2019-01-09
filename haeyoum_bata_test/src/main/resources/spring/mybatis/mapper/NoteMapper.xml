@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.model.NoteMapper">
+
+	<select id="noteList" parameterType="hashmap" resultType="note">
+		select * from note 
+		where group_id = #{group_id} 
+		order by con_id desc
+	</select>
+	
+	<insert id="insert" keyProperty="con_id" parameterType="note">
+		insert into note(group_id, sort_id, note_name, note_text, note_writer,note_regdate, note_moddate,note_readcount)
+		values (#{group_id}, #{sort_id}, #{note_name}, #{note_text}, #{note_writer}, now(), now(), default);
+	</insert>
+
+	<select id="readNote" parameterType="hashmap" resultType="note">
+		select * from note where con_id = #{con_id}
+	</select>
+	
+	 <update id="readupdate" parameterType="hashmap">
+		update note
+		set note_readcount = note_readcount+1
+		where con_id = #{con_id}
+	</update>
+	
+	<update id="updateNote" parameterType="updateNote">
+		update note	set note_name = #{note_name}, note_text = #{note_text} 
+		where con_id =#{con_id}
+	</update>
+
+	<delete id="deleteNote" parameterType="int">
+		delete from note where con_id = #{con_id}
+	</delete>
+	
+	
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.model.PhotoMapper">
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="con_id" parameterType="photo">
+		insert
+		into photo(group_id, sort_id, photo_name, photo_text,
+		photo_writer,photo_regdate, photo_moddate)
+		values
+		(#{group_id}, #{sort_id}, #{photo_name},
+		#{photo_text},#{photo_writer}, now(), now());
+	</insert>
+
+	<insert id="fileinsert" parameterType="hashmap">
+		insert into photo_file(group_id, con_id, photo_file)
+		values(#{group_id}, #{con_id}, #{photo_file});
+	</insert>
+
+	<select id="allRecord" resultType="photoView">
+		select * from loca_photo_view order by con_id desc
+	</select>
+
+	<select id="fileselect" parameterType="photo" resultType="photoFile">
+		select * from photo_file
+		where group_id = #{group_id};
+	</select>
+	
+	<delete id="delete" parameterType="photo">
+		delete from photo
+		where
+		con_id = #{con_id}
+	</delete>
+ 
+ 	<delete id="filedelete" parameterType="photoFile">
+ 		delete from photo_file
+ 		where con_id=#{con_id}
+ 	</delete>
+ 
+	<select id="photoone" resultType="photoView">
+		select *
+		from loca_photo_view
+		where con_id = #{con_id}
+	</select>
+
+	<update id="update" parameterType="photo">
+		update photo
+		set photo_name = #{photo_name} ,
+		photo_text = #{photo_text} , photo_moddate = now()
+		where con_id = #{con_id};
+	</update>
+	
+</mapper>

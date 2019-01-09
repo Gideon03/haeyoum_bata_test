@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.model.PlanMapper">
+	
+	<!-- table plan -->
+	<insert id="insertPlan" parameterType="plan" >
+		insert into haeyoum.plan
+		(group_id, sort_id, plan_year, plan_month)
+		values (#{group_id}, 105, #{plan_year}, #{plan_month}) 
+	</insert>
+	
+	<select id="selectPlan" parameterType="hashmap" resultType="plan">
+		select * from haeyoum.plan
+		where group_id = #{group_id} 
+			and plan_year = #{plan_year}
+			and plan_month = ${plan_month}
+			and plan_day between 1 and 31
+	</select>
+	
+	
+	<select id="count">
+		select count(*) 
+		from haeyoum.plan where DATE(plan_st_date) BETWEEN #{strToday}'-01' and #{strToday}'-31'
+	</select>
+	
+	<update id="update" parameterType="plan" >
+		update haeyoum.plan set plan_name = #{plan_name}, plan_text = #{plan_text}, plan_st_time = #{plan_st_time}, plan_end_time = #{plan_end_time}
+		where group_id = #{group_id} and con_id = #{con_id};
+	</update>
+	
+	<select id="selectupdate" parameterType="hashmap" resultType="plan">
+	select * from haeyoum.plan 
+	where group_Id = #{group_id} and con_id = #{con_id}
+	</select>
+	
+	<delete id="plandelete" parameterType="hashmap">
+	delete from haeyoum.plan
+	where group_Id = #{group_id} and con_id = #{con_id}
+	</delete>
+	
+	<!-- table plan_content -->
+	<insert id="insertPlanCon" parameterType="planCon" >
+		insert into haeyoum.plan_content
+		values (#{con_id}, #{plan_st_time}, #{plan_end_time},
+				#{plan_name}, #{plan_text}, #{plan_writer}, now())
+	</insert>
+</mapper>

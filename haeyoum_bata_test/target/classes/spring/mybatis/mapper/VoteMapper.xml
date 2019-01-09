@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ 	<mapper namespace="group.model.VoteMapper">
+ 		
+ 		<!-- vote list -->
+ 		<select id="selectVoteList" parameterType="map" resultType="vote">
+ 			select * from haeyoum.vote
+ 			where group_id = #{group_id}
+ 			order by con_id desc
+ 		</select>
+ 		
+ 		<!-- select vote -->
+ 		<select id="selectVote" parameterType="map" resultType="vote">
+ 			select * from haeyoum.vote
+ 			where con_id = #{con_id}
+ 		</select>
+ 		
+ 		<!-- select voteContent -->
+ 		<select id="selectVoteCon" parameterType="map" resultType="voteCon">
+ 			select * from haeyoum.vote_content
+ 			where con_id = #{con_id} 
+ 		</select>
+
+		<!-- create vote -->
+ 		<insert id="insert" useGeneratedKeys="true" keyProperty="con_id" parameterType="vote" >
+ 			insert into haeyoum.vote (group_id, sort_id, vote_writer, vote_name, vote_startdate, vote_enddate)
+ 			values(#{group_id}, #{sort_id}, #{vote_writer}, #{vote_name}, now(), now())
+ 		</insert>
+ 		
+ 		<!-- create voteContent -->
+ 		<insert id="insertVoteCon" parameterType="voteCon" >
+ 			insert into haeyoum.vote_content (group_id, con_id, vote_list)
+ 			values(#{group_id}, #{con_id}, #{vote_list})
+ 		</insert>
+ 		
+ 		<!-- update vote -->
+		<update id="updateVote" parameterType="vote" >
+			update haeyoum.vote 
+			set vote_name = #{vote_name}
+ 			where con_id = #{con_id} 
+		</update>
+		
+		<!-- update voteContent -->
+		<update id="updateVoteCon" parameterType="voteCon" >
+			update haeyoum.vote_content
+			set vote_list = #{vote_list}
+ 			where con_id = #{con_id} and vote_list_id = #{vote_list_id}
+		</update>
+ 		 
+ 		 <!-- delete voteContent -->
+ 		<delete id="deleteVote" parameterType="vote">
+ 			delete from haeyoum.vote
+ 			where con_id = #{con_id}
+ 		</delete>
+ 		
+ 		<!-- delete voteContent -->
+ 		<delete id="deleteVoteCon" parameterType="voteCon" >
+ 			delete from haeyoum.vote_content
+ 			where con_id = #{con_id}
+ 		</delete>
+ 			
+ 	</mapper>

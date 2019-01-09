@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ 	<mapper namespace="group.model.VoteUserMapper">
+ 	
+ 		<select id="confirmVote" parameterType="voteUser" resultType="int">
+ 			select count(*) from haeyoum.vote_user where con_id = #{con_id} and member_id = #{member_id}
+ 		</select>
+ 		
+ 		<select id="selectVoteUser" parameterType="voteUser" resultType="voteUser">
+ 			select * from haeyoum.vote_user where con_id = #{con_id} and member_id = #{member_id}
+ 		</select>
+ 		
+ 		<select id="voteCount" parameterType="hashmap" resultType="int">
+ 			select count(*) from haeyoum.vote_user where vote_list_id = #{vote_list_id}
+ 		</select>
+ 		
+ 		<insert id="newVoteUser" parameterType="voteUser">
+ 			insert into haeyoum.vote_user
+ 			value (#{group_id}, #{con_id}, #{vote_list_id}, #{member_id})
+ 		</insert>
+ 	
+		<delete id="deleteVoteUser">
+			delete from haeyoum.vote_user where con_id = #{con_id}
+		</delete>
+
+	</mapper>

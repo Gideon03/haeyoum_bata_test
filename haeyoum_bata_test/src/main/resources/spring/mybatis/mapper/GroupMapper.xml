@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.model.GroupMapper">
+
+	<select id="selectGroup" parameterType="hashmap" resultType="group">
+	select * from haeyoum.group 
+	where group_id = #{group_id}
+	</select>
+	
+	<select id="inviteGroup" parameterType="hashmap" resultType="group">
+	select * from haeyoum.group 
+	where group_code like #{group_code}
+	</select>
+	
+	<select id="confirmCode" parameterType="hashmap" resultType="int">
+	select count(*) from haeyoum.group 
+	where group_code like #{conCode}
+	</select>
+	
+	<select id="groupList" parameterType="hashmap" resultType="groupList">
+	select group_id, group_name
+	from (haeyoum.group) join (haeyoum.group_member)
+	using (group_id)
+	where group_member_id like #{member_id}
+	limit #{stPage}, 11;
+	</select>
+	
+	<insert id="insertGroup"  useGeneratedKeys="true" keyProperty="group_id" parameterType="group">
+	insert into haeyoum.group (group_name, group_max, group_regdate, group_admin_id, group_code)
+	values (#{group_name}, #{group_max}, now(), #{group_admin_id}, #{group_code})
+	</insert>
+	
+	<update id="updateGroup" parameterType="group">
+	update haeyoum.group 
+	set group_name = #{group_name} 
+	where group_id = #{group_id}
+	</update>
+		
+	<delete id="deleteGroup" parameterType="group">
+	delete from haeyoum.group 
+	where group_id = #{group_id}
+	</delete>
+	
+	
+	
+</mapper>

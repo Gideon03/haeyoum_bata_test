@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.model.LocationMapper">
+
+	<insert id="insert" parameterType="location">
+		insert into map
+		values (#{group_id}, #{sort_id}, #{photo_con_id}, #{video_con_id}, #{map_longitude}, #{map_latitude})
+	</insert>
+	
+	<delete id="videodelete" parameterType="location">
+		delete from map
+		where
+	 	sort_id = #{sort_id} and video_con_id = #{con_id}
+	</delete>
+	
+	<delete id="photodelete" parameterType="location">
+		delete from map
+		where
+	 	sort_id = #{sort_id} and photo_con_id = #{con_id}
+	</delete>
+	
+	<update id="videoupdate" parameterType="hashmap">
+		update map
+		set map_longitude = #{map_longitude},
+			map_latitude = #{map_latitude}
+		where video_con_id = #{con_id}
+	</update>
+	
+	<update id="photoupdate" parameterType="hashmap">
+		update map
+		set map_longitude = #{map_longitude},
+			map_latitude = #{map_latitude}
+		where photo_con_id = #{con_id}
+	</update>
+</mapper>

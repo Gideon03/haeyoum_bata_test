@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group.model.VideoMapper">
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="con_id" parameterType="video">
+		insert
+		into video(group_id, sort_id, video_name,video_file, video_text,
+		video_writer,video_regdate, video_moddate)
+		values
+		(#{group_id}, #{sort_id}, #{video_name},#{video_file},
+		#{video_text},#{video_writer},now(), now());
+	</insert>
+
+	<select id="allRecord" resultType="videoView">
+		select *
+		from loca_video_view
+		order by con_id desc
+	</select>
+	
+	<delete id="delete" parameterType="video">
+		delete from video
+		where
+		con_id = #{con_id}
+	</delete>
+	
+	<select id="videoone" resultType="videoView">
+		select *
+		from loca_video_view
+		where con_id = #{con_id}
+	</select>
+	
+	<update id="update" parameterType="video">
+		update video
+		set video_name = #{video_name} , video_file = #{video_file} , 
+		video_text = #{video_text} , video_moddate = now()
+		where con_id = #{con_id};
+	</update>
+	
+</mapper>
