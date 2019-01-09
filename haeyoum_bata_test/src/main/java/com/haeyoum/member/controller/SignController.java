@@ -28,6 +28,7 @@ public class SignController {
 	private final String SIGN_IN_VIEW = "sign/sign-in";
 	private final String SIGN_OUT_VIEW = "sign/sign-out";
 	private final String USER_HOME_VIEW = "sign/home";
+	private final String EMAIL_CONFIRM_VIEW = "sign/home";
 
 	@Autowired
 	private MemberService memberSvc;
@@ -84,7 +85,7 @@ public class SignController {
             return HOME;
         }
         model.addAttribute("user", member);
-        return "user/emailConfirm";
+        return EMAIL_CONFIRM_VIEW;
     }
 //	-------------------------------------------------------------------------------------
     
