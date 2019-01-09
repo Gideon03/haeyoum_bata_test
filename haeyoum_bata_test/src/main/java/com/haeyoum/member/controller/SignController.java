@@ -28,7 +28,7 @@ public class SignController {
 	private final String SIGN_IN_VIEW = "sign/sign-in";
 	private final String SIGN_OUT_VIEW = "sign/sign-out";
 	private final String USER_HOME_VIEW = "sign/home";
-	private final String EMAIL_CONFIRM_VIEW = "sign/home";
+	private final String EMAIL_CONFIRM_VIEW = "sign/emailConfirm";
 
 	@Autowired
 	private MemberService memberSvc;
@@ -84,7 +84,7 @@ public class SignController {
             rttr.addFlashAttribute("msg", "비정상적인 접근 입니다. 다시 인증해 주세요");
             return HOME;
         }
-        model.addAttribute("user", member);
+        model.addAttribute("user", member.getM_name());
         return EMAIL_CONFIRM_VIEW;
     }
 //	-------------------------------------------------------------------------------------
