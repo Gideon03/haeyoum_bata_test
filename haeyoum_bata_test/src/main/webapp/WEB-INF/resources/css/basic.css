@@ -6,6 +6,7 @@ html {
 body {
  background-color: #f8f8f8;
 }
+
 header .container {
  padding-top: 5px;
  padding-bottom: 5px;
@@ -19,19 +20,22 @@ header .brand{
  float:none;
  margin: 0 auto;
 }
-.nav li a {
- color: #fff;
-}
-.nav li a:hover, a:focus{
- text-decoration: underline;
- background-color: #45546a;
-}
 .str-cen{
  text-align: center;
 }
 
+.sti-body {
+ margin-bottom: 110px;
+}
+.sti-foot {
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+}
+
 .userArea{
  padding-top: 70px;
+ padding-bottom: 110px;
 }
 .mainArea {
  height: 600px;
@@ -150,8 +154,11 @@ header .brand{
  color: #ccc;
 }
 
-@media (min-width: 768px){
+@media (max-width: 768px){
 .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
     margin-left: 0px;
+}
+.btn-search{
+ width: 100%;
 }
 }

@@ -23,11 +23,11 @@ import com.haeyoum.member.service.MemberService;
 @SessionAttributes("user")
 public class SignController {
 	private final String HOME = "redirect:/";
+	private final String USER_HOME = "redirect:/user-home";
 	private final String HOME_VIEW = "index";
 	private final String SIGN_UP_VIEW = "sign/sign-up";
 	private final String SIGN_IN_VIEW = "sign/sign-in";
 	private final String SIGN_OUT_VIEW = "sign/sign-out";
-	private final String USER_HOME_VIEW = "sign/home";
 	private final String EMAIL_CONFIRM_VIEW = "sign/emailConfirm";
 
 	@Autowired
@@ -84,7 +84,7 @@ public class SignController {
             rttr.addFlashAttribute("msg", "비정상적인 접근 입니다. 다시 인증해 주세요");
             return HOME;
         }
-        model.addAttribute("user", member.getM_name());
+        model.addAttribute("user", member);
         return EMAIL_CONFIRM_VIEW;
     }
 //	-------------------------------------------------------------------------------------
@@ -102,7 +102,6 @@ public class SignController {
 		try {
 			member = memberSvc.selectByUser(m_email);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -121,7 +120,7 @@ public class SignController {
 			user.setLogin(true);
 			model.addAttribute("user", user);
 			
-			return USER_HOME_VIEW;
+			return USER_HOME;
 		}
 	}
 //	-------------------------------------------------------------------------------------
