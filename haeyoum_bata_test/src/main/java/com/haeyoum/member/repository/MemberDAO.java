@@ -55,7 +55,7 @@ public class MemberDAO {
     
     //유저정보 변경
     public int updateInfo(MemberInfo memInfo) {
-    	return sqlSession.selectOne(nameSpace+".editInfo", memInfo);
+    	return sqlSession.update(nameSpace+".editInfo", memInfo);
     }
 
     //	------------------------------------- Member Log --------------------------------------
@@ -71,7 +71,7 @@ public class MemberDAO {
     
     //유저 접속정보 변경
     public int updateLog(String m_email) {
-    	return sqlSession.selectOne(nameSpace+".updateLog", m_email);
+    	return sqlSession.update(nameSpace+".updateLog", m_email);
     }
     
 }

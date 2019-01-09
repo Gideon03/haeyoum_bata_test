@@ -10,6 +10,7 @@ import com.haeyoum.handler.MailHandler;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.model.Member;
 import com.haeyoum.member.model.MemberInfo;
+import com.haeyoum.member.model.MemberLog;
 import com.haeyoum.member.repository.MemberDAO;
 import com.haeyoum.util.TempKey;
 
@@ -84,7 +85,9 @@ public class MemberService {
     //세션에 저장할 유저데이터 생성 
     public User loginUser(Member member) {
     	//유저 접속시간 갱신
-    	if (dao.selectLog(member.getM_email()) == null) {
+    	MemberLog memLog = dao.selectLog(member.getM_email());
+    	if (memLog == null) {
+    		System.out.println("1");
     		dao.createLog(member.getM_email());
     	}
     	dao.updateLog(member.getM_email());
