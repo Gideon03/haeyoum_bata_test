@@ -28,7 +28,7 @@ header .brand{
  margin-bottom: 110px;
 }
 .sti-foot {
- position: absolute;
+ position: fixed;
  bottom: 0;
  width: 100%;
 }
@@ -54,6 +54,30 @@ header .brand{
 
 .loginSection {
  height: 100%;
+}
+
+.h-list {
+ position:relative;
+ height: 200px;
+}
+.h-list h2{
+ text-overflow:ellipsis;
+ white-space:nowrap;
+ word-wrap:normal;
+ overflow:hidden;
+}
+.h-list p{
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 3; /* 라인수 */
+-webkit-box-orient: vertical;
+word-wrap:break-word; 
+line-height: 1.5em;
+}
+.btn-bottom {
+ position:absolute;
+ bottom: 0;
 }
 
 .title {
