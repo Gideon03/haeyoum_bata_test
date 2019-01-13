@@ -24,8 +24,8 @@ public class MemberService {
 	
 //	------------------------------------- Member --------------------------------------
 	public void regist(Member member) throws Exception {
-		String key = new TempKey().getKeyCode(30);  // 인증키 생성
-        member.setM_authkey(key);
+		String key = new TempKey().generateKey(30);  // 인증키 생성
+        member.setAuthkey(key);
         System.out.println("key : " + key);
         
         //DB에 가입정보등록
@@ -37,13 +37,13 @@ public class MemberService {
         sendMail.setText(
                 new StringBuffer()
                 .append("<h1>메일인증</h1>")
-                .append("<a href='http://localhost:8080/haeyoum_bata_test/emailConfirm?memberAuthKey=")
+                .append("<a href='http://localhost:8080/haeyoum_beta_test/emailConfirm?memberAuthKey=")
                 .append(key)
                 .append("' target='_blank'>이메일 인증 확인</a>")
                 .toString());
         
         sendMail.setFrom("haeyoum.auth@gmail.com", "Haeyoum");
-        sendMail.setTo(member.getM_email());
+        sendMail.setTo(member.getEmail());
         sendMail.send();
     }
 
@@ -55,8 +55,8 @@ public class MemberService {
         if(member!=null){
             try{
                 dao.successAuthkey(member);
-                dao.createInfo(new MemberInfo(member.getM_email()));
-                dao.createLog(member.getM_email());
+                dao.createInfo(new MemberInfo(member.getEmail()));
+                dao.createLog(member.getEmail());
             }catch (Exception e) {
                 e.printStackTrace();
             }
@@ -75,9 +75,9 @@ public class MemberService {
 		if (member == null) {
 			errors.put("notFoundUser", Boolean.TRUE);
 			return errors;
-		} else if (!member.getM_password().equals(m_password)) {
+		} else if (!member.getPassword().equals(m_password)) {
 			errors.put("pwError", Boolean.TRUE);
-		} else if (!member.getM_authkey().equals("0")) {
+		} else if (!member.getAuthkey().equals("0")) {
 			errors.put("notConfirmUser", Boolean.TRUE);
 		}
 		return errors;
@@ -85,13 +85,13 @@ public class MemberService {
     //세션에 저장할 유저데이터 생성 
     public User loginUser(Member member) {
     	//유저 접속시간 갱신
-    	MemberLog memLog = dao.selectLog(member.getM_email());
+    	MemberLog memLog = dao.selectLog(member.getEmail());
     	if (memLog == null) {
     		System.out.println("1");
-    		dao.createLog(member.getM_email());
+    		dao.createLog(member.getEmail());
     	}
-    	dao.updateLog(member.getM_email());
-		return new User(member.getM_email(), true);
+    	dao.updateLog(member.getEmail());
+		return new User(member.getEmail(), true);
 	}
     
 //	------------------------------------- Member Info --------------------------------------
@@ -102,7 +102,7 @@ public class MemberService {
     
     //유저정보 변경
     public int updateInfo(MemberInfo memInfo) {
-    	if (dao.selectInfo(memInfo.getM_email()) == null) {
+    	if (dao.selectInfo(memInfo.getId()) == null) {
     		dao.createInfo(memInfo);
     	}
     	return dao.updateInfo(memInfo);

@@ -37,9 +37,6 @@ public class LoginCheckFilter implements Filter {
 			} else if (!user.isLogin()) {
 				resp.sendRedirect(req.getContextPath() + "/sign-in");
 				return;
-			} else if (user.isLogin()){
-				resp.sendRedirect(req.getContextPath() + "/user-home");
-				return;
 			}
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/sign-in");

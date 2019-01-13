@@ -4,70 +4,70 @@ import java.util.Date;
 
 public class Vote {
 
-	private int group_id;
-	private String sort_id;
-	private int con_id;
-	private String vote_name;
-	private String vote_writer;
-	private Date vote_startdate;
-	private Date vote_enddate;
+	private int room_id;
+	private int sort_id;
+	private int vote_id;
+	private String title;
+	private String writer;
+	private Date start_date;
+	private Date end_date;
 	
 	public Vote() {}
 
-	public int getGroup_id() {
-		return group_id;
+	public int getRoom_id() {
+		return room_id;
 	}
 
-	public void setGroup_id(int group_id) {
-		this.group_id = group_id;
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
 	}
 
-	public String getSort_id() {
+	public int getSort_id() {
 		return sort_id;
 	}
 
-	public void setSort_id(String sort_id) {
+	public void setSort_id(int sort_id) {
 		this.sort_id = sort_id;
 	}
 
-	public int getCon_id() {
-		return con_id;
+	public int getVote_id() {
+		return vote_id;
 	}
 
-	public void setCon_id(int con_id) {
-		this.con_id = con_id;
+	public void setVote_id(int vote_id) {
+		this.vote_id = vote_id;
 	}
 
-	public String getVote_name() {
-		return vote_name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setVote_name(String vote_name) {
-		this.vote_name = vote_name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getVote_writer() {
-		return vote_writer;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setVote_writer(String vote_writer) {
-		this.vote_writer = vote_writer;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
-	public Date getVote_startdate() {
-		return vote_startdate;
+	public Date getStart_date() {
+		return start_date;
 	}
 
-	public void setVote_startdate(Date vote_startdate) {
-		this.vote_startdate = vote_startdate;
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
 	}
 
-	public Date getVote_enddate() {
-		return vote_enddate;
+	public Date getEnd_date() {
+		return end_date;
 	}
 
-	public void setVote_enddate(Date vote_enddate) {
-		this.vote_enddate = vote_enddate;
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
 	}
-	
+
 }

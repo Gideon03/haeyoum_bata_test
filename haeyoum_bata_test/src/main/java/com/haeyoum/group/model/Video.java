@@ -1,80 +1,92 @@
 package com.haeyoum.group.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Video {
 	
-	private int group_id;
+	private int room_id;
 	private int sort_id;
-	private int con_id;
-	private String video_name;
-	private String video_file;
-	private String video_text;
-	private String video_writer;
-	private Date video_regdate;
-	private Date video_moddate;
-	private SimpleDateFormat toDate = new SimpleDateFormat("yyyy년MM월dd일HH시mm분ss초");
+	private int video_id;
+	private String title;
+	private String videos;
+	private String content;
+	private String writer;
+	private Date regdate;
+	private Date moddate;
 	
-	public int getGroup_id() {
-		return group_id;
+	public Video() {
 	}
-	public void setGroup_id(int group_id) {
-		this.group_id = group_id;
+
+	public int getRoom_id() {
+		return room_id;
 	}
+
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
+	}
+
 	public int getSort_id() {
 		return sort_id;
 	}
+
 	public void setSort_id(int sort_id) {
 		this.sort_id = sort_id;
 	}
-	public int getCon_id() {
-		return con_id;
+
+	public int getVideo_id() {
+		return video_id;
 	}
-	public void setCon_id(int con_id) {
-		this.con_id = con_id;
+
+	public void setVideo_id(int video_id) {
+		this.video_id = video_id;
 	}
-	public String getVideo_name() {
-		return video_name;
+
+	public String getTitle() {
+		return title;
 	}
-	public void setVideo_name(String video_name) {
-		this.video_name = video_name;
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getVideo_file() {
-		return video_file;
+
+	public String getVideos() {
+		return videos;
 	}
-	public void setVideo_file(String video_file) {
-		this.video_file = video_file;
+
+	public void setVideos(String videos) {
+		this.videos = videos;
 	}
-	public String getVideo_text() {
-		return video_text;
+
+	public String getContent() {
+		return content;
 	}
-	public void setVideo_text(String video_text) {
-		this.video_text = video_text;
+
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public String getVideo_writer() {
-		return video_writer;
+
+	public String getWriter() {
+		return writer;
 	}
-	public void setVideo_writer(String video_writer) {
-		this.video_writer = video_writer;
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
-	public Date getVideo_regdate() {
-		return video_regdate;
+
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setVideo_regdate(Date video_regdate) {
-		this.video_regdate = video_regdate;
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
-	public Date getVideo_moddate() {
-		return video_moddate;
+
+	public Date getModdate() {
+		return moddate;
 	}
-	public void setVideo_moddate(Date video_moddate) {
-		this.video_moddate = video_moddate;
-	}
-	public String getRegDate() {
-		return toDate.format(video_regdate);
-	}
-	public String getModDate() {
-		return toDate.format(video_moddate);
+
+	public void setModdate(Date moddate) {
+		this.moddate = moddate;
 	}
 	
 }

@@ -2,43 +2,48 @@ package com.haeyoum.group.model;
 
 public class VoteUser {
 
-	private int group_id;
-	private int con_id;
-	private int vote_list_id;
+	private int room_id;
+	private int vote_id;
+	private int list_id;
 	private String member_id;
 	
-
 	public VoteUser() {}
-	
-	public VoteUser(int con_id, String member_id) {
-		this.con_id = con_id;
+
+	public VoteUser(int vote_id, String member_id) {
+		this.vote_id = vote_id;
 		this.member_id = member_id;
 	}
 
-	public int getGroup_id() {
-		return group_id;
+	public int getRoom_id() {
+		return room_id;
 	}
-	public void setGroup_id(int group_id) {
-		this.group_id = group_id;
+
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
 	}
-	public int getCon_id() {
-		return con_id;
+
+	public int getVote_id() {
+		return vote_id;
 	}
-	public void setCon_id(int con_id) {
-		this.con_id = con_id;
+
+	public void setVote_id(int vote_id) {
+		this.vote_id = vote_id;
 	}
-	public int getVote_list_id() {
-		return vote_list_id;
+
+	public int getList_id() {
+		return list_id;
 	}
-	public void setVote_list_id(int vote_list_id) {
-		this.vote_list_id = vote_list_id;
+
+	public void setList_id(int list_id) {
+		this.list_id = list_id;
 	}
+
 	public String getMember_id() {
-		return member_id; 
+		return member_id;
 	}
+
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-
-
+	
 }

@@ -2,7 +2,7 @@ package com.haeyoum.member.model;
 
 public class User {
 
-	private String m_email;
+	private String member_id;
 	private boolean Login = false;
 	private int group_id = 0;
 
@@ -10,16 +10,16 @@ public class User {
 	}
 
 	public User(String member_id, boolean login) {
-		this.m_email = member_id;
+		this.member_id = member_id;
 		Login = login;
 	}
 
-	public String getM_email() {
-		return m_email;
+	public String getMember_id() {
+		return member_id;
 	}
 
-	public void setM_email(String m_email) {
-		this.m_email = m_email;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 	public boolean isLogin() {

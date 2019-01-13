@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.haeyoum.group.model.Location;
-import com.haeyoum.group.model.Note;
 import com.haeyoum.group.model.Video;
 import com.haeyoum.group.model.VideoView;
 import com.haeyoum.group.repository.VideoDAO;
@@ -26,9 +25,9 @@ public class VideoService {
 
 		int result = videoDAO.insert(video);
 
-		map.put("group_id", video.getGroup_id());
+		map.put("group_id", video.getRoom_id());
 		map.put("sort_id", video.getSort_id());
-		map.put("video_con_id", video.getCon_id());
+		map.put("video_con_id", video.getVideo_id());
 		if (result != 0) {
 			locationSvc.insert(map);
 		}

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.haeyoum.group.model.GroupList;
+import com.haeyoum.group.model.RoomList;
 import com.haeyoum.group.service.GroupMemberService;
 import com.haeyoum.group.service.GroupService;
 import com.haeyoum.member.model.User;
@@ -28,12 +28,12 @@ public class GroupRestController {
 	private GroupMemberService groupMemberSvc;
 	
 	@RequestMapping("/groupList")
-	public String groupList(@ModelAttribute("user") User user, Model model,HttpSession session,GroupList groupList) {
+	public String groupList(@ModelAttribute("user") User user, Model model,HttpSession session,RoomList groupList) {
 		user.setGroup_id(0);
 		int stPage = 0;
-		groupList.setGroup_id(user.getGroup_id());
+		groupList.setId(user.getGroup_id());
 		
-		List<GroupList> list = groupSvc.groupList(stPage, user.getM_email());
+		List<RoomList> list = groupSvc.groupList(stPage, user.getMember_id());
 	
 		model.addAttribute("groupList", list);
 		
@@ -44,14 +44,14 @@ public class GroupRestController {
 	
 	
 	@RequestMapping("/iphone/groupList")
-	public List<GroupList> groupList() {
+	public List<RoomList> groupList() {
 
-		List<GroupList> list = new ArrayList<GroupList>();
+		List<RoomList> list = new ArrayList<RoomList>();
 		
 		for (int i = 1 ; i <= 100 ; i++) {
-			GroupList group = new GroupList();
-			group.setGroup_id(i);
-			group.setGroup_name("group_" + i);
+			RoomList group = new RoomList();
+			group.setId(i);
+			group.setRoom_name("group_" + i);
 			list.add(group);
 		}
 		

@@ -1,6 +1,5 @@
 package com.haeyoum.group.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,8 +11,6 @@ import com.haeyoum.group.model.Location;
 import com.haeyoum.group.model.Photo;
 import com.haeyoum.group.model.PhotoFile;
 import com.haeyoum.group.model.PhotoView;
-import com.haeyoum.group.model.Video;
-import com.haeyoum.group.model.VideoView;
 import com.haeyoum.group.repository.PhotoDAO;
 
 @Service
@@ -29,9 +26,9 @@ public class PhotoService {
 		
 		int result = photoDAO.insert(photo);
 		
-		map.put("group_id", photo.getGroup_id());
+		map.put("group_id", photo.getRoom_id());
 		map.put("sort_id", photo.getSort_id());
-		map.put("photo_con_id", photo.getCon_id());
+		map.put("photo_con_id", photo.getPhoto_id());
 		if (result != 0) {
 			locationSvc.insert(map);
 		}

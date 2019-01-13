@@ -26,25 +26,27 @@ import com.haeyoum.group.service.PhotoService;
 import com.haeyoum.member.model.FileVo;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.FileUploadService;
+import com.haeyoum.member.service.MemberService;
 
 @Controller
-@RequestMapping("/group/photo")
+@RequestMapping("/photo")
 @SessionAttributes("user")
 public class PhotoController {
 
-	private static final String LIST = "photo/photoList";
-	private static final String PHOTOADD = "photo/photoAdd";
-	private static final String CONFIRM = "photo/photoConfirm";
-	private static final String UPDATE = "photo/photoModify";
+	private static final String LIST = "photo/list";
+	private static final String PHOTOADD = "photo/create";
+	private static final String CONFIRM = "photo/confirm";
+	private static final String UPDATE = "photo/modify";
 
 	@Autowired
 	private PhotoService photoSvc;
-
 	@Autowired
 	private LocationService mapSvc;
-
 	@Autowired
 	private FileUploadService fileService;
+	@Autowired
+	private MemberService memberSvc;
+	
 
 	@ModelAttribute("user")
 	public User emptySession() {
@@ -57,12 +59,12 @@ public class PhotoController {
 		return realPath;
 	}
 
-	@RequestMapping(value = "/photoList", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String photolist(Photo photo, PhotoFile photoFile, Model model, @ModelAttribute("user") User user) {
 		
-		photo.setGroup_id(user.getGroup_id());
+		photo.setRoom_id(user.getGroup_id());
 		List<PhotoView> photoView = photoSvc.selectList();
-		photoFile.setCon_id(photo.getCon_id());
+		photoFile.setPhoto_id(photo.getPhoto_id());
 		List<PhotoFile> file = photoSvc.selectFile(photo);
 
 		model.addAttribute("user", user);
@@ -80,10 +82,10 @@ public class PhotoController {
 
 	@RequestMapping(value = "/photoAdd", method = RequestMethod.POST)
 	public String addphoto(Model model, Photo photo, Location location, @RequestParam ArrayList<MultipartFile> files,
-			@ModelAttribute("realPath") String realPath, @ModelAttribute("user") User user) {
+			@ModelAttribute("realPath") String realPath, @ModelAttribute("user") User user) throws Exception {
 
-		photo.setPhoto_writer(user.getM_email());
-		photo.setGroup_id(user.getGroup_id());
+		photo.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
+		photo.setRoom_id(user.getGroup_id());
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("map_latitude", location.getMap_latitude());
@@ -95,8 +97,8 @@ public class PhotoController {
 			
 		HashMap<String, Object> map2 = new HashMap<String, Object>();
 		
-		map2.put("con_id", photo.getCon_id());
-		map2.put("group_id", photo.getGroup_id());
+		map2.put("con_id", photo.getPhoto_id());
+		map2.put("group_id", photo.getRoom_id());
 		
 		for (MultipartFile mf : files) {
 			FileVo file = new FileVo();
@@ -116,8 +118,8 @@ public class PhotoController {
 	public String photodelete(Photo photo, Location location, PhotoFile photoFile, @RequestParam("sort_id") int sort_id,
 			@RequestParam("con_id") int con_id) {
 
-		photo.setCon_id(con_id);
-		photoFile.setGroup_id(photo.getGroup_id());
+		photo.setPhoto_id(con_id);
+		photoFile.setRoom_id(photo.getRoom_id());
 		Object result = photoSvc.delete(photo, location, photoFile);
 
 		if (result != null) {
@@ -137,19 +139,19 @@ public class PhotoController {
 	public String videomodify(Model model, PhotoFile photoFile, Photo photo, Location location,
 			@RequestParam ArrayList<MultipartFile> files,
 			@ModelAttribute("realPath") String realPath,
-			@ModelAttribute("user") User user) {
+			@ModelAttribute("user") User user) throws Exception {
 		
-		photo.setPhoto_writer(user.getM_email());
-		photo.setGroup_id(user.getGroup_id());
+		photo.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
+		photo.setRoom_id(user.getGroup_id());
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("map_latitude", location.getMap_latitude());
 		map.put("map_longitude", location.getMap_longitude());
-		map.put("con_id", photo.getCon_id());
+		map.put("con_id", photo.getPhoto_id());
 		
 		
 		HashMap<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("con_id", photo.getCon_id());
-		map2.put("group_id", photo.getGroup_id());
+		map2.put("con_id", photo.getPhoto_id());
+		map2.put("group_id", photo.getRoom_id());
 		
 		Object result = photoSvc.update(photo, map);
 		System.out.println("1 : "+result);

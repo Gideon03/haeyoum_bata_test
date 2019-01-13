@@ -34,10 +34,10 @@ public class VoteRequest {
 	}
 	
 	public String getStDate() {
-		return util.convertDayTime(vote.getVote_startdate());
+		return util.convertDayTime(vote.getStart_date());
 	}
 	public String getEndDate() {
-		return util.convertDayTime(vote.getVote_enddate());
+		return util.convertDayTime(vote.getEnd_date());
 	}
    
 }

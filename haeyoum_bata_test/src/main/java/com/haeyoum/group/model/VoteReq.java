@@ -1,86 +1,84 @@
 package com.haeyoum.group.model;
 
-import java.util.Date;
-
 public class VoteReq {
 
-	private int group_id;
-	private String sort_id;
-	private int con_id;
-	private String vote_name;
-	private String vote_writer;
-	private String vote_startdate;
-	private String vote_enddate;
+	private int room_id;
+	private int sort_id;
+	private int vote_id;
+	private String title;
+	private String writer;
+	private String start_date;
+	private String end_date;
 	
 	public VoteReq() {}
-
-	public VoteReq(int group_id, String sort_id, int con_id, String vote_name, String vote_writer,
-			String vote_startdate, String vote_enddate) {
-		super();
-		this.group_id = group_id;
+	
+	public VoteReq(int room_id, int sort_id, int vote_id, String title, String writer, String start_date,
+			String end_date) {
+		this.room_id = room_id;
 		this.sort_id = sort_id;
-		this.con_id = con_id;
-		this.vote_name = vote_name;
-		this.vote_writer = vote_writer;
-		this.vote_startdate = vote_startdate;
-		this.vote_enddate = vote_enddate;
+		this.vote_id = vote_id;
+		this.title = title;
+		this.writer = writer;
+		this.start_date = start_date;
+		this.end_date = end_date;
 	}
 
-	public int getGroup_id() {
-		return group_id;
+	public int getRoom_id() {
+		return room_id;
 	}
 
-	public void setGroup_id(int group_id) {
-		this.group_id = group_id;
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
 	}
 
-	public String getSort_id() {
+	public int getSort_id() {
 		return sort_id;
 	}
 
-	public void setSort_id(String sort_id) {
+	public void setSort_id(int sort_id) {
 		this.sort_id = sort_id;
 	}
 
-	public int getCon_id() {
-		return con_id;
+	public int getVote_id() {
+		return vote_id;
 	}
 
-	public void setCon_id(int con_id) {
-		this.con_id = con_id;
+	public void setVote_id(int vote_id) {
+		this.vote_id = vote_id;
 	}
 
-	public String getVote_name() {
-		return vote_name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setVote_name(String vote_name) {
-		this.vote_name = vote_name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getVote_writer() {
-		return vote_writer;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setVote_writer(String vote_writer) {
-		this.vote_writer = vote_writer;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
-	public String getVote_startdate() {
-		return vote_startdate;
+	public String getStart_date() {
+		return start_date;
 	}
 
-	public void setVote_startdate(String vote_startdate) {
-		this.vote_startdate = vote_startdate;
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
 	}
 
-	public String getVote_enddate() {
-		return vote_enddate;
+	public String getEnd_date() {
+		return end_date;
 	}
 
-	public void setVote_enddate(String vote_enddate) {
-		this.vote_enddate = vote_enddate;
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
 	}
-
 	
+	
+
 }
