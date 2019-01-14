@@ -45,7 +45,7 @@ public class MemberController {
 	@RequestMapping(value = "user-edit", method = RequestMethod.GET)
 	public String update(@ModelAttribute("user") User user, Model model) {
 		// 접속 유저의 정보 가져오기
-		MemberInfo memInfo = memberSvc.selectInfo(user.getM_email());
+		MemberInfo memInfo = memberSvc.selectInfo(user.getMember_id());
 		model.addAttribute("memberInfo", memInfo);
 		return USER_EDIT_VIEW;
 	}
@@ -56,7 +56,7 @@ public class MemberController {
 			@ModelAttribute("realPath") String realPath,
 			@ModelAttribute("user") User user){
 		
-		memInfo.setM_email(user.getM_email());	//정보 수정할 유저 ID 설정
+		memInfo.setId(user.getMember_id());	//정보 수정할 유저 ID 설정
 		
 		// 유저프로필 이미지 저장
 		fileService.saveFile(realPath, file);
@@ -66,7 +66,7 @@ public class MemberController {
 		
 		// 이미지가 없을경우 null
 		if (fileName.length() != 0) {
-			memInfo.setM_image(fileName);
+			memInfo.setImage(fileName);
 		}
 		
 		int result = memberSvc.updateInfo(memInfo);

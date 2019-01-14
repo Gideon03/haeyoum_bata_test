@@ -70,9 +70,9 @@ public class VoteController {
 	public String vote(
 			Model model, Vote vote, 
 			@RequestParam("con_text") ArrayList<String> conText,
-			@ModelAttribute("user") User user) {
+			@ModelAttribute("user") User user) throws Exception {
 		
-		vote.setVote_writer(user.getM_email());
+		vote.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
 		int con_id = voteSvc.createVote(vote, conText);
 		
 		if (con_id == 0) {
@@ -96,7 +96,7 @@ public class VoteController {
 		if( selectVote != null) {
 			model.addAttribute("vote", selectVote);
 		}
-		VoteUser voteUser = new VoteUser(con_id, user.getM_email());
+		VoteUser voteUser = new VoteUser(con_id, user.getMember_id());
 		int confirm = userSvc.confirmVote(voteUser);
 		if(confirm != 0) {
 			VoteUser voteCom = userSvc.selectVoteUser(voteUser);
@@ -116,16 +116,16 @@ public class VoteController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<VoteResult> list = new ArrayList<>();
 		
-		VoteRequest selectVote = voteSvc.getVote(voteUser.getCon_id());
+		VoteRequest selectVote = voteSvc.getVote(voteUser.getList_id());
 		List<VoteContent> voteList = selectVote.getVoteCon();
 		for ( VoteContent con : voteList) {
 			VoteResult votecon = 
 					new VoteResult(
-							con.getGroup_id(), 
-							con.getCon_id(), 
-							con.getVote_list_id(), 
-							con.getVote_list(), 
-							userSvc.voteCount(con.getVote_list_id()));
+							con.getRoom_id(), 
+							con.getVote_id(), 
+							con.getList_id(), 
+							con.getContent(), 
+							userSvc.voteCount(con.getList_id()));
 			list.add(votecon);
 		}
 		result.put("voteList", list);
@@ -149,8 +149,8 @@ public class VoteController {
 		List<VoteResult> list = new ArrayList<>();
 		
 		// User vote
-		voteUser.setGroup_id(user.getGroup_id());
-		voteUser.setMember_id(user.getM_email());
+		voteUser.setRoom_id(user.getGroup_id());
+		voteUser.setMember_id(user.getMember_id());
 		int confirm = userSvc.confirmVote(voteUser);
 		if(confirm != 0) {
 			result.put("voteComplet", 1);
@@ -162,16 +162,16 @@ public class VoteController {
 		}
 		
 		// Vote Result
-		VoteRequest selectVote = voteSvc.getVote(voteUser.getCon_id());
+		VoteRequest selectVote = voteSvc.getVote(voteUser.getList_id());
 		List<VoteContent> voteList = selectVote.getVoteCon();
 		for ( VoteContent con : voteList) {
 			VoteResult votecon = 
 					new VoteResult(
-							con.getGroup_id(), 
-							con.getCon_id(), 
-							con.getVote_list_id(), 
-							con.getVote_list(), 
-							userSvc.voteCount(con.getVote_list_id()));
+							con.getRoom_id(), 
+							con.getVote_id(), 
+							con.getList_id(), 
+							con.getContent(), 
+							userSvc.voteCount(con.getList_id()));
 			list.add(votecon);
 		}
 		result.put("voteList", list);
@@ -207,11 +207,11 @@ public class VoteController {
 		
 		// 새로 값 넣어주기
 		List<VoteContent> reqVoteCon = new ArrayList<>();
-		vote.setVote_name(vote_name);
+		vote.setTitle(vote_name);
 		
 		for(int i = 0; i < votConList.size(); i++) {
 			VoteContent list = votConList.get(i);
-			list.setVote_list(conList[i]);
+			list.setContent(conList[i]);
 			reqVoteCon.add(list);
 			System.out.println(i +"aaa : "+ conList[i]);
 		}
@@ -240,7 +240,7 @@ public class VoteController {
 	public String delete(Model model, @ModelAttribute("user") User user, 
 			@RequestParam("con_id") int con_id, @RequestParam("delete_pw")String delete_pw) throws Exception {
 		
-		Member member = memberSvc.selectByUser(user.getM_email());
+		Member member = memberSvc.selectByUser(user.getMember_id());
 		
 		HashMap<String, Object> errors = memberSvc.confirmMember(member, delete_pw);
 		model.addAttribute("errors", errors);

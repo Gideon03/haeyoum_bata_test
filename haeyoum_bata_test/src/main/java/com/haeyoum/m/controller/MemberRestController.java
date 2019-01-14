@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.haeyoum.m.model.MemberRestModel;
 import com.haeyoum.member.model.Member;
 import com.haeyoum.member.service.MemberService;
 
@@ -22,19 +21,13 @@ public class MemberRestController {
 	private MemberService memberSvc;
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public Map<String, Integer> regist(MemberRestModel member) throws Exception {
+	public Map<String, Integer> regist(Member member) throws Exception {
 
-		System.out.printf("(POST) id -> %s\n", member.getMember_id());
-		System.out.printf("(POST) bd -> %s\n", member.getMember_birthday());
+		System.out.printf("(POST) id -> %s\n", member.getEmail());
 
 		Map<String, Integer> json = new HashMap<>();
 
-		Member regMember = new Member();
-		regMember.setM_email(member.getMember_id());
-		regMember.setM_password(member.getMember_password());
-		regMember.setM_name(member.getMember_name());
-
-		memberSvc.regist(regMember);
+		memberSvc.regist(member);
 
 		json.put("result", 1);
 
@@ -69,9 +62,9 @@ public class MemberRestController {
 		System.out.printf("(GET) message -> %s\n", message);
 		
 		Member member = new Member();
-		member.setM_email("1");
-		member.setM_password("asd");
-		member.setM_name("asdfasd");
+		member.setEmail("1");
+		member.setPassword("asd");
+		member.setUser_name("asdfasd");
 		
 		String strJson = null;
 		return strJson;

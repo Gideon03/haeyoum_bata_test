@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.haeyoum.group.model.GroupMember;
+import com.haeyoum.group.model.RoomMember;
 
 @Repository
 public class GroupMemberDAO {
@@ -21,7 +21,7 @@ public class GroupMemberDAO {
 		return sqlSession.insert(strName + ".insertGroupMember", map);
 	}
 	
-	public List<GroupMember> getGroupMember(HashMap<String, Object> map) {
+	public List<RoomMember> getGroupMember(HashMap<String, Object> map) {
 		return sqlSession.selectList(strName + ".selectGroupMember", map);
 	}
 	

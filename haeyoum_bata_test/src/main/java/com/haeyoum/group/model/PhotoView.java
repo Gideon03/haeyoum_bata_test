@@ -4,15 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PhotoView {
+
 	private int group_id;
 	private int sort_id;
 	private int con_id;
-	private String photo_name;
-	private String photo_file;
-	private String photo_text;
-	private String photo_writer;
-	private Date photo_regdate;
-	private Date photo_moddate;
+	private String video_name;
+	private String video_file;
+	private String video_text;
+	private String video_writer;
+	private Date video_regdate;
+	private Date video_moddate;
 	private String map_longitude;
 	private String map_latitude;
 	private SimpleDateFormat toDate = new SimpleDateFormat("yy년MM월dd일 HH시mm분");
@@ -20,92 +21,75 @@ public class PhotoView {
 	public int getGroup_id() {
 		return group_id;
 	}
-
 	public void setGroup_id(int group_id) {
 		this.group_id = group_id;
 	}
-
 	public int getSort_id() {
 		return sort_id;
 	}
-
 	public void setSort_id(int sort_id) {
 		this.sort_id = sort_id;
 	}
-
 	public int getCon_id() {
 		return con_id;
 	}
-
 	public void setCon_id(int con_id) {
 		this.con_id = con_id;
 	}
-
-	public String getPhoto_name() {
-		return photo_name;
+	public String getVideo_name() {
+		return video_name;
 	}
-
-	public void setPhoto_name(String photo_name) {
-		this.photo_name = photo_name;
+	public void setVideo_name(String video_name) {
+		this.video_name = video_name;
 	}
-
-	public String getPhoto_file() {
-		return photo_file;
+	public String getVideo_file() {
+		return video_file;
 	}
-
-	public void setPhoto_file(String photo_file) {
-		this.photo_file = photo_file;
+	public void setVideo_file(String video_file) {
+		this.video_file = video_file;
 	}
-
-	public String getPhoto_text() {
-		return photo_text;
+	public String getVideo_text() {
+		return video_text;
 	}
-
-	public void setPhoto_text(String photo_text) {
-		this.photo_text = photo_text;
+	public void setVideo_text(String video_text) {
+		this.video_text = video_text;
 	}
-
-	public String getPhoto_writer() {
-		return photo_writer;
+	public String getVideo_writer() {
+		return video_writer;
 	}
-
-	public void setPhoto_writer(String photo_writer) {
-		this.photo_writer = photo_writer;
+	public void setVideo_writer(String video_writer) {
+		this.video_writer = video_writer;
 	}
-
-	public Date getPhoto_regdate() {
-		return photo_regdate;
+	public Date getVideo_regdate() {
+		return video_regdate;
 	}
-
-	public void setPhoto_regdate(Date photo_regdate) {
-		this.photo_regdate = photo_regdate;
+	public void setVideo_regdate(Date video_regdate) {
+		this.video_regdate = video_regdate;
 	}
-
-	public Date getPhoto_moddate() {
-		return photo_moddate;
+	public Date getVideo_moddate() {
+		return video_moddate;
 	}
-
-	public void setPhoto_moddate(Date photo_moddate) {
-		this.photo_moddate = photo_moddate;
+	public void setVideo_moddate(Date video_moddate) {
+		this.video_moddate = video_moddate;
 	}
-
 	public String getMap_longitude() {
 		return map_longitude;
 	}
-
 	public void setMap_longitude(String map_longitude) {
 		this.map_longitude = map_longitude;
 	}
-
 	public String getMap_latitude() {
 		return map_latitude;
 	}
-
 	public void setMap_latitude(String map_latitude) {
 		this.map_latitude = map_latitude;
 	}
-
+	
 	public String getRegDate() {
-		return toDate.format(photo_regdate);
+		return toDate.format(video_regdate);
 	}
+	public String getModDate() {
+		return toDate.format(video_moddate);
+	}
+	
 }

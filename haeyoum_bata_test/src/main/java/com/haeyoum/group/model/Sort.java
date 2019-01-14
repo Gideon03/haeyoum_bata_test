@@ -1,14 +1,14 @@
 package com.haeyoum.group.model;
 
-public class Group_Sort {
+public class Sort {
 
 	private int sort_id;
 	private String sort_name;
 
-	public Group_Sort() {
+	public Sort() {
 	}
 
-	public Group_Sort(int sort_id, String sort_name) {
+	public Sort(int sort_id, String sort_name) {
 		this.sort_id = sort_id;
 		this.sort_name = sort_name;
 	}

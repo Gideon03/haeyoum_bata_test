@@ -42,13 +42,13 @@ public class VoteService {
 		
 		for (Vote vote : voteDAO.selectList(map)) {
 			VoteReq voteReq = new VoteReq(
-					vote.getGroup_id(),
+					vote.getRoom_id(),
 					vote.getSort_id(),
-					vote.getCon_id(),
-					vote.getVote_name(),
-					vote.getVote_writer(),
-					util.convertDayTime(vote.getVote_startdate()),
-					util.convertDayTime(vote.getVote_enddate()));
+					vote.getVote_id(),
+					vote.getTitle(),
+					vote.getWriter(),
+					util.convertDayTime(vote.getStart_date()),
+					util.convertDayTime(vote.getEnd_date()));
 			voteReqList.add(voteReq);
 		}
 		
@@ -61,11 +61,11 @@ public class VoteService {
 		
 		for(int i= 0 ; i < conText.size() ; i++) {
 			if(conText.get(i).trim().length() != 0) {
-				VoteContent voteCon = new VoteContent(vote.getGroup_id(), vote.getCon_id(), conText.get(i));
+				VoteContent voteCon = new VoteContent(vote.getRoom_id(), vote.getVote_id(), conText.get(i));
 				voteDAO.insertVoteCon(voteCon); 
 			}
 		}
-		return vote.getCon_id();
+		return vote.getVote_id();
 	}
 	
 	public int deleteVote(Vote vote) {
@@ -80,7 +80,7 @@ public class VoteService {
 		
 		if(result != 0) {
 			for(VoteContent voteCon : votConList) {
-				System.out.println(voteCon.getVote_list_id());
+				System.out.println(voteCon.getList_id());
 				conResult = voteDAO.updateVoteCon(voteCon);
 			}
 		}

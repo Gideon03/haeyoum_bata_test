@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.haeyoum.group.model.Chat;
-import com.haeyoum.group.model.Group;
-import com.haeyoum.group.model.GroupList;
+import com.haeyoum.group.model.Room;
+import com.haeyoum.group.model.RoomList;
 
 @Repository
 public class ChatDAO {

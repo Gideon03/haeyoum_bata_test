@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.haeyoum.group.model.GroupMember;
+import com.haeyoum.group.model.RoomMember;
 import com.haeyoum.group.repository.GroupMemberDAO;
 
 @Service
@@ -22,7 +22,7 @@ public class GroupMemberService {
 		return GMDAO.insertGroupMember(map);
 	}
 	
-	public List<GroupMember> getGroupMember(int group_id) {
+	public List<RoomMember> getGroupMember(int group_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("group_id", group_id);
 		return GMDAO.getGroupMember(map);

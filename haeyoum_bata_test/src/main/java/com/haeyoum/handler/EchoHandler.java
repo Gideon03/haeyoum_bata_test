@@ -29,7 +29,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		// HttpSession에 저장된 정보를 WebSocketSession 에서 사용
 		Map<String, Object> attrMap = session.getAttributes();
 		User user = (User) attrMap.get("user");
-		System.out.printf("%s 연결됨\n", user.getM_email());
+		System.out.printf("%s 연결됨\n", user.getMember_id());
 	}
 
 	// 클라이언트가 서버로 메시지를 전송했을 때 실행되는 메서드
@@ -38,11 +38,11 @@ public class EchoHandler extends TextWebSocketHandler {
 
 		Map<String, Object> attrMap = session.getAttributes();
 		User user = (User) attrMap.get("user");
-		System.out.printf("%s로 부터 %s 받음\n", user.getM_email(), message.getPayload());
+		System.out.printf("%s로 부터 %s 받음\n", user.getMember_id(), message.getPayload());
 		
 		Chat chat = chatSvc.insertChat(
 				new Chat(user.getGroup_id(), 
-						user.getM_email(), 
+						user.getMember_id(), 
 						message.getPayload()));
 		
 		for (WebSocketSession sess : sessionList) {
@@ -53,11 +53,11 @@ public class EchoHandler extends TextWebSocketHandler {
 			if (reqUser.getGroup_id() == user.getGroup_id()) {
 				
 				sess.sendMessage(
-						new TextMessage(user.getM_email() 
+						new TextMessage(user.getMember_id() 
 								+ "|" 
 								+ message.getPayload()
 								+ "|" 
-								+ du.convertTime(chat.getMessage_senddate())));
+								+ du.convertTime(chat.getSend_date())));
 			}
 		}
 	}
@@ -69,6 +69,6 @@ public class EchoHandler extends TextWebSocketHandler {
 		// System.out.printf("%s 연결 끊김\n", session.getId());
 		Map<String, Object> attrMap = session.getAttributes();
 		User user = (User) attrMap.get("user");
-		System.out.printf("%s 연결 끊김\n", user.getM_email());
+		System.out.printf("%s 연결 끊김\n", user.getMember_id());
 	}
 }

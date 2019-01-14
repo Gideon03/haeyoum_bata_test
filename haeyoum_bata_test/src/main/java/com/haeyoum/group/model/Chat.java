@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class Chat {
 
-	private int group_id;
+	private int room_id;
 	private int chat_id;
 	private String member_id;
-	private String message_text;
-	private Date message_senddate;
+	private String content;
+	private Date send_date;
 	
 	public Chat() {
 	}
 
-	public Chat(int group_id, String member_id, String message_text) {
-		this.group_id = group_id;
+	public Chat(int room_id, String member_id, String content) {
+		this.room_id = room_id;
 		this.member_id = member_id;
-		this.message_text = message_text;
+		this.content = content;
 	}
 
-	public int getGroup_id() {
-		return group_id;
+	public int getRoom_id() {
+		return room_id;
 	}
 
-	public void setGroup_id(int group_id) {
-		this.group_id = group_id;
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
 	}
 
 	public int getChat_id() {
@@ -43,22 +43,20 @@ public class Chat {
 		this.member_id = member_id;
 	}
 
-	public String getMessage_text() {
-		return message_text;
+	public String getContent() {
+		return content;
 	}
 
-	public void setMessage_text(String message_text) {
-		this.message_text = message_text;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public Date getMessage_senddate() {
-		return message_senddate;
+	public Date getSend_date() {
+		return send_date;
 	}
 
-	public void setMessage_senddate(Date message_senddate) {
-		this.message_senddate = message_senddate;
+	public void setSend_date(Date send_date) {
+		this.send_date = send_date;
 	}
 
-	
-	
 }

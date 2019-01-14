@@ -24,6 +24,7 @@ import com.haeyoum.group.service.VideoService;
 import com.haeyoum.member.model.FileVo;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.FileUploadService;
+import com.haeyoum.member.service.MemberService;
 
 @Controller
 @RequestMapping("/group/video")
@@ -43,6 +44,8 @@ public class VideoController {
 
 	@Autowired
 	private FileUploadService fileService;
+	@Autowired
+	private MemberService memberSvc;
 
 	@ModelAttribute("user")
 	public User emptySession() {
@@ -77,20 +80,20 @@ public class VideoController {
 	public String addVideo(Model model, Video video, Location location,
 			@RequestParam("file") MultipartFile mf,
 			@ModelAttribute("realPath") String realPath,
-			@ModelAttribute("user") User user) {
+			@ModelAttribute("user") User user) throws Exception {
 		FileVo file = new FileVo();
 		file.setFile(mf);
 
 		
 		
-		video.setVideo_writer(user.getM_email());
-		video.setGroup_id(user.getGroup_id());
+		video.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
+		video.setRoom_id(user.getGroup_id());
 
 		fileService.saveFile(realPath, file);
 		
 		String fileName = file.getFile().getOriginalFilename();
 
-		video.setVideo_file(fileName);
+		video.setVideos(fileName);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("map_latitude", location.getMap_latitude());
@@ -126,7 +129,7 @@ public class VideoController {
 	// 수정 정보 받아온뒤
 	@RequestMapping(value = "/videoModify", method = RequestMethod.POST)
 	public String videomodify(Model model, Video video, Location location, @RequestParam("flie") MultipartFile mf,
-			@ModelAttribute("realPath") String realPath, @ModelAttribute("user") User user) {
+			@ModelAttribute("realPath") String realPath, @ModelAttribute("user") User user) throws Exception {
 		FileVo file = new FileVo();
 		file.setFile(mf);
 		
@@ -134,13 +137,13 @@ public class VideoController {
 		
 		String fileName = file.getFile().getOriginalFilename();
 		
-		video.setVideo_writer(user.getM_email());
-		video.setVideo_file(fileName);
+		video.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
+		video.setVideos(fileName);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("map_latitude", location.getMap_latitude());
 		map.put("map_longitude", location.getMap_longitude());
-		map.put("con_id", video.getCon_id());
+		map.put("con_id", video.getVideo_id());
 		
 		Object result = videoSvc.update(video, map);
 

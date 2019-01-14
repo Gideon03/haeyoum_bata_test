@@ -36,11 +36,11 @@ public class ChatService {
 		// 날짜 변환작업
 		for( Chat chat : chatDAO.chatList(map)) {
 			reqChatList.add(
-					new ChatReq(chat.getGroup_id(), 
+					new ChatReq(chat.getRoom_id(), 
 							chat.getChat_id(), 
 							chat.getMember_id(), 
-							chat.getMessage_text(),
-							du.convertTime(chat.getMessage_senddate())));
+							chat.getContent(),
+							du.convertTime(chat.getSend_date())));
 		}
 		return reqChatList;
 	} 
