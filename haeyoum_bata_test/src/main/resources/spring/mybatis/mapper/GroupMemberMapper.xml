@@ -6,7 +6,7 @@
 
 <mapper namespace="group.model.GroupMemberMapper">
 
-	<select id="selectGroupMember" parameterType="hashmap" resultType="groupMember">
+	<select id="selectGroupMember" parameterType="hashmap" resultType="roomMember">
 	select * from haeyoum.group_member
 	where group_id = #{group_id}
 	</select>
@@ -26,13 +26,13 @@
 	values (#{group_id}, #{group_member_id})
 	</insert>
 	
-	<update id="updateGroupMember" parameterType="groupMember">
+	<update id="updateGroupMember" parameterType="roomMember">
 	update haeyoum.group_member
 	set group_member_id = #{group_member_id} 
 	where group_id = #{group_id} and group_member_id = #{group_member_id}
 	</update>
 	
-	<delete id="deleteGroupMember" parameterType="groupMember">
+	<delete id="deleteGroupMember" parameterType="roomMember">
 	delete from haeyoum.group_member
 	where group_id = #{group_id} and group_member_id = #{group_member_id}
 	</delete>

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.haeyoum.group.model.RoomList;
-import com.haeyoum.group.service.GroupMemberService;
-import com.haeyoum.group.service.GroupService;
 import com.haeyoum.member.model.User;
+import com.haeyoum.room.model.RoomList;
+import com.haeyoum.room.service.GroupMemberService;
+import com.haeyoum.room.service.GroupService;
 
 @RestController
 @RequestMapping("/m")

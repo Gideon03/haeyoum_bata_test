@@ -6,9 +6,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.haeyoum.group.model.Chat;
-import com.haeyoum.group.service.ChatService;
 import com.haeyoum.member.model.User;
+import com.haeyoum.room.model.Chat;
+import com.haeyoum.room.service.ChatService;
 import com.haeyoum.util.DateUtil;
 
 import java.util.*;

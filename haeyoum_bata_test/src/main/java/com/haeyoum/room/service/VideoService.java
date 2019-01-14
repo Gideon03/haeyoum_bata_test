@@ -1,0 +1,67 @@
+package com.haeyoum.room.service;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.haeyoum.room.model.Location;
+import com.haeyoum.room.model.Video;
+import com.haeyoum.room.model.VideoView;
+import com.haeyoum.room.repository.VideoDAO;
+
+@Service
+public class VideoService {
+
+	@Autowired
+	private VideoDAO videoDAO;
+	@Autowired
+	private LocationService locationSvc;
+
+	@Transactional
+	public Video insert(Video video, HashMap<String, Object> map) {
+
+		int result = videoDAO.insert(video);
+
+		map.put("group_id", video.getRoom_id());
+		map.put("sort_id", video.getSort_id());
+		map.put("video_con_id", video.getVideo_id());
+		if (result != 0) {
+			locationSvc.insert(map);
+		}
+		return video;
+
+	}
+
+	@Transactional
+	public Video delete(Video video, Location location) {
+
+		int a = locationSvc.videoDelete(location);
+		if (a != 0) {
+			videoDAO.delete(video);
+		}
+
+		return video;
+	}
+
+	public List<VideoView> selectList() {
+		return this.videoDAO.selectList();
+	}
+
+	public VideoView videoone(VideoView videoView) {
+		return this.videoDAO.videoone(videoView);
+	}
+
+	@Transactional
+	public Video update(Video video, HashMap<String, Object> map) {
+
+		int a = videoDAO.update(video);
+		if (a != 0) {
+			locationSvc.videoUpdate(map);
+		}
+		return video;
+	}
+
+}

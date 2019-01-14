@@ -6,12 +6,12 @@
 
 <mapper namespace="group.model.GroupMapper">
 
-	<select id="selectGroup" parameterType="hashmap" resultType="group">
+	<select id="selectGroup" parameterType="hashmap" resultType="room">
 	select * from haeyoum.group 
 	where group_id = #{group_id}
 	</select>
 	
-	<select id="inviteGroup" parameterType="hashmap" resultType="group">
+	<select id="inviteGroup" parameterType="hashmap" resultType="room">
 	select * from haeyoum.group 
 	where group_code like #{group_code}
 	</select>
@@ -21,7 +21,7 @@
 	where group_code like #{conCode}
 	</select>
 	
-	<select id="groupList" parameterType="hashmap" resultType="groupList">
+	<select id="groupList" parameterType="hashmap" resultType="roomList">
 	select group_id, group_name
 	from (haeyoum.group) join (haeyoum.group_member)
 	using (group_id)
@@ -29,18 +29,18 @@
 	limit #{stPage}, 11;
 	</select>
 	
-	<insert id="insertGroup"  useGeneratedKeys="true" keyProperty="group_id" parameterType="group">
+	<insert id="insertGroup"  useGeneratedKeys="true" keyProperty="group_id" parameterType="room">
 	insert into haeyoum.group (group_name, group_max, group_regdate, group_admin_id, group_code)
 	values (#{group_name}, #{group_max}, now(), #{group_admin_id}, #{group_code})
 	</insert>
 	
-	<update id="updateGroup" parameterType="group">
+	<update id="updateGroup" parameterType="room">
 	update haeyoum.group 
 	set group_name = #{group_name} 
 	where group_id = #{group_id}
 	</update>
 		
-	<delete id="deleteGroup" parameterType="group">
+	<delete id="deleteGroup" parameterType="room">
 	delete from haeyoum.group 
 	where group_id = #{group_id}
 	</delete>
