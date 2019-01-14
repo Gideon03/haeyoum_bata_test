@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.haeyoum.member.model.User;
 import com.haeyoum.error.LoginError;
 import com.haeyoum.member.model.Member;
+import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.MemberService;
 import com.haeyoum.room.model.Vote;
 import com.haeyoum.room.model.VoteContent;
@@ -27,7 +27,7 @@ import com.haeyoum.room.model.VoteReq;
 import com.haeyoum.room.model.VoteRequest;
 import com.haeyoum.room.model.VoteResult;
 import com.haeyoum.room.model.VoteUser;
-import com.haeyoum.room.service.GroupMemberService;
+import com.haeyoum.room.service.RoomMemberService;
 import com.haeyoum.room.service.VoteService;
 import com.haeyoum.room.service.VoteUserService;
 
@@ -49,12 +49,12 @@ public class VoteController {
 	@Autowired
 	private MemberService memberSvc;
 	@Autowired
-	private GroupMemberService groupMemberSvc;
+	private RoomMemberService roomMemberSvc;
 	
 //	--------------------------------- Vote List ----------------------------------------
 	@RequestMapping("/voteList")
 	public String voteList(Model model, @ModelAttribute("user") User user) {
-		List<VoteReq> voteReqList = voteSvc.voteList(user.getGroup_id());
+		List<VoteReq> voteReqList = voteSvc.voteList(user.getRoom_id());
 		
 		model.addAttribute("voteList", voteReqList);
 		
@@ -150,7 +150,7 @@ public class VoteController {
 		List<VoteResult> list = new ArrayList<>();
 		
 		// User vote
-		voteUser.setRoom_id(user.getGroup_id());
+		voteUser.setRoom_id(user.getRoom_id());
 		voteUser.setMember_id(user.getMember_id());
 		int confirm = userSvc.confirmVote(voteUser);
 		if(confirm != 0) {

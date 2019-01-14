@@ -4,7 +4,7 @@ public class User {
 
 	private String member_id;
 	private boolean login = false;
-	private int group_id = 0;
+	private int room_id = 0;
 
 	public User() {
 	}
@@ -30,12 +30,12 @@ public class User {
 		this.login = login;
 	}
 
-	public int getGroup_id() {
-		return group_id;
+	public int getRoom_id() {
+		return room_id;
 	}
 
-	public void setGroup_id(int group_id) {
-		this.group_id = group_id;
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
 	}
 
 }

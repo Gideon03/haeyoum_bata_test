@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Room {  
 	
-	private int id;
-	private String room_name;
+	private int room_id;
+	private String title;
 	private int max;
 	private String room_master;
 	private String roomkey;
@@ -14,30 +14,29 @@ public class Room {
 	public Room() {
 	}
 
-	public Room(int id, String room_name, int max, String room_master, String roomkey, Date regdate) {
-		super();
-		this.id = id;
-		this.room_name = room_name;
+	public Room(int room_id, String title, int max, String room_master, String roomkey, Date regdate) {
+		this.room_id = room_id;
+		this.title = title;
 		this.max = max;
 		this.room_master = room_master;
 		this.roomkey = roomkey;
 		this.regdate = regdate;
 	}
 
-	public int getId() {
-		return id;
+	public int getRoom_id() {
+		return room_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
 	}
 
-	public String getRoom_name() {
-		return room_name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setRoom_name(String room_name) {
-		this.room_name = room_name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public int getMax() {

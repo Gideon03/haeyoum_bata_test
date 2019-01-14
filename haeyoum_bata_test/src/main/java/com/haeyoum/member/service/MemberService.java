@@ -103,7 +103,7 @@ public class MemberService {
     
     //유저정보 변경
     public int updateInfo(MemberInfo memInfo) {
-    	if (dao.selectInfo(memInfo.getId()) == null) {
+    	if (dao.selectInfo(memInfo.getEmail()) == null) {
     		dao.createInfo(memInfo);
     	}
     	return dao.updateInfo(memInfo);

@@ -20,15 +20,15 @@ import com.haeyoum.member.service.MemberService;
 import com.haeyoum.room.model.Room;
 import com.haeyoum.room.model.RoomList;
 import com.haeyoum.room.model.RoomMember;
-import com.haeyoum.room.service.GroupMemberService;
-import com.haeyoum.room.service.GroupService;
+import com.haeyoum.room.service.RoomMemberService;
+import com.haeyoum.room.service.RoomService;
 import com.haeyoum.util.TempKey;
 
 @Controller
 @RequestMapping("/room")
 @SessionAttributes("user")
 
-public class GroupController {
+public class RoomController {
 
 	private final String GROUP_FORM = "room/regForm";
 	private final String GROUP_CONFIRM = "room/confirm";
@@ -43,9 +43,9 @@ public class GroupController {
 	private final String REDIRECT_GROUP_LIST = "redirect:roomList";
 
 	@Autowired
-	private GroupService groupSvc;
+	private RoomService RoomSvc;
 	@Autowired
-	private GroupMemberService groupMemberSvc;
+	private RoomMemberService roomMemberSvc;
 	@Autowired
 	private MemberService memberSvc;
 
@@ -63,7 +63,7 @@ public class GroupController {
 		
 		// key 중복값 확인
 		while (true) {
-			int result = groupSvc.confirmGroup(generateKey);
+			int result = RoomSvc.confirmGroup(generateKey);
 
 			if (result == 0) {
 				key = "{\"value\" : \"" + generateKey + "\"}";
@@ -74,7 +74,7 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String groupReg(@ModelAttribute("user") User user, Room group, Model model) {
+	public String roomReg(@ModelAttribute("user") User user, Room group, Model model) {
 
 		HashMap<String, Boolean> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
@@ -95,20 +95,20 @@ public class GroupController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Room newGroup = groupSvc.createGroup(group);
+		Room newGroup = RoomSvc.createGroup(group);
 
-		user.setGroup_id(newGroup.getId()); 
+		user.setRoom_id(newGroup.getRoom_id()); 
 		model.addAttribute("group", newGroup);
 
 		return GROUP_CONFIRM;
 	}
 
 	@RequestMapping("/list")
-	public String groupList(@ModelAttribute("user") User user, Model model) {
-		user.setGroup_id(0);
+	public String roomList(@ModelAttribute("user") User user, Model model) {
+		user.setRoom_id(0);
 		int stPage = 0;
 		
-		List<RoomList> list = groupSvc.groupList(stPage, user.getMember_id());
+		List<RoomList> list = RoomSvc.groupList(stPage, user.getMember_id());
 	
 		model.addAttribute("list", list);
 		return GROUP_LIST;
@@ -121,7 +121,7 @@ public class GroupController {
 		stPage *= 11;
 
 		Map<String, List<RoomList>> groupList = new HashMap<>();
-		List<RoomList> list = groupSvc.groupList(stPage, user.getMember_id());
+		List<RoomList> list = RoomSvc.groupList(stPage, user.getMember_id());
 		
 		groupList.put("list", list);
 		return groupList;
@@ -136,7 +136,7 @@ public class GroupController {
 	@RequestMapping("/inviteCode/{inviteCode}")
 	public String confirmCode(@PathVariable("inviteCode") String reqCode) {
 		
-		int result = groupSvc.confirmGroup(reqCode);
+		int result = RoomSvc.confirmGroup(reqCode);
 		String code = "{\"value\" : \"" + result + "\"}";
 		
 		return code;
@@ -156,17 +156,17 @@ public class GroupController {
 			errors.put("errorCode", Boolean.TRUE);
 		}
 		
-		Room inGroup = groupSvc.inviteGroup(reqCode, user.getMember_id());
+		Room inGroup = RoomSvc.inviteGroup(reqCode, user.getMember_id());
 		if(inGroup == null) {
 			errors.put("emptyGroup", Boolean.TRUE);
 		}
 		 
-		int confirmMember = groupMemberSvc.confirmGroupMember(inGroup.getId());
+		int confirmMember = roomMemberSvc.confirmGroupMember(inGroup.getRoom_id());
 		if (confirmMember != 0) {
 			errors.put("joined", Boolean.TRUE);
 		}
 		
-		int countMember = groupMemberSvc.countGroupMember(inGroup.getId());
+		int countMember = roomMemberSvc.countGroupMember(inGroup.getRoom_id());
 		if (countMember >= inGroup.getMax()) {
 			errors.put("fullMember", Boolean.TRUE);
 		}
@@ -175,7 +175,7 @@ public class GroupController {
 			return GROUP_INVITE;
 		}
 		
-		groupMemberSvc.insertGroupMember(inGroup.getId(), user.getMember_id());
+		roomMemberSvc.insertGroupMember(inGroup.getRoom_id(), user.getMember_id());
 
 		return REDIRECT_GROUP_LIST;
 	}
@@ -184,14 +184,14 @@ public class GroupController {
 	public String room(@ModelAttribute("user") User user, 
 						@RequestParam("group_id") int group_id, Model model) {
 
-		Room group = groupSvc.selectGroup(group_id);
+		Room group = RoomSvc.selectGroup(group_id);
 		if(group == null) {
 			return GROUP_LIST;
 		}
-		int countMember = groupMemberSvc.countGroupMember(group_id);
-		user.setGroup_id(group_id);
+		int countMember = roomMemberSvc.countGroupMember(group_id);
+		user.setRoom_id(group_id);
 		
-		List<RoomMember> memberList = groupMemberSvc.getGroupMember(group_id);
+		List<RoomMember> memberList = roomMemberSvc.getGroupMember(group_id);
 		
 		model.addAttribute("group", group);
 		model.addAttribute("memberList", memberList);

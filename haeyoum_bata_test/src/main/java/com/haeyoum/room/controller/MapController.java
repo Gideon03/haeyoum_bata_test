@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.haeyoum.room.model.Location;
-import com.haeyoum.room.service.GroupService;
+import com.haeyoum.room.service.RoomService;
 import com.haeyoum.room.service.LocationService;
 
 

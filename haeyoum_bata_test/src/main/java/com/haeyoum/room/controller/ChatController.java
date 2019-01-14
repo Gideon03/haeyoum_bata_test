@@ -27,12 +27,12 @@ public class ChatController {
 
 	@RequestMapping("/chat")
 	public String chat(@ModelAttribute("user") User user, Model model) {
-		if(user.getGroup_id() == 0) {
+		if(user.getRoom_id() == 0) {
 			return GROUP_LIST;
 		}
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("group_id", user.getGroup_id());
+		map.put("group_id", user.getRoom_id());
 		
 		List<ChatReq> reqChatList = chatSvc.chatList(map);
 		

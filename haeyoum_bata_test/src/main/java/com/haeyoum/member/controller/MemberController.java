@@ -56,7 +56,7 @@ public class MemberController {
 			@ModelAttribute("realPath") String realPath,
 			@ModelAttribute("user") User user){
 		
-		memInfo.setId(user.getMember_id());	//정보 수정할 유저 ID 설정
+		memInfo.setEmail(user.getMember_id());	//정보 수정할 유저 ID 설정
 		
 		// 유저프로필 이미지 저장
 		fileService.saveFile(realPath, file);

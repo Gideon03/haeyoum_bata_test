@@ -62,7 +62,7 @@ public class PhotoController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String photolist(Photo photo, PhotoFile photoFile, Model model, @ModelAttribute("user") User user) {
 		
-		photo.setRoom_id(user.getGroup_id());
+		photo.setRoom_id(user.getRoom_id());
 		List<PhotoView> photoView = photoSvc.selectList();
 		photoFile.setPhoto_id(photo.getPhoto_id());
 		List<PhotoFile> file = photoSvc.selectFile(photo);
@@ -85,7 +85,7 @@ public class PhotoController {
 			@ModelAttribute("realPath") String realPath, @ModelAttribute("user") User user) throws Exception {
 
 		photo.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
-		photo.setRoom_id(user.getGroup_id());
+		photo.setRoom_id(user.getRoom_id());
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("map_latitude", location.getMap_latitude());
@@ -142,7 +142,7 @@ public class PhotoController {
 			@ModelAttribute("user") User user) throws Exception {
 		
 		photo.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
-		photo.setRoom_id(user.getGroup_id());
+		photo.setRoom_id(user.getRoom_id());
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("map_latitude", location.getMap_latitude());
 		map.put("map_longitude", location.getMap_longitude());

@@ -40,7 +40,7 @@ public class NoteController {
 
 	@RequestMapping("/list")
 	public String note_list(@ModelAttribute("user") User user, Model model) {
-		model.addAttribute("list", noteSvc.selectList(user.getGroup_id()));
+		model.addAttribute("list", noteSvc.selectList(user.getRoom_id()));
 		return LIST;
 	}
 
@@ -60,7 +60,7 @@ public class NoteController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createNote(Model model, Note note, @ModelAttribute("user") User user) throws Exception {
 		note.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
-		note.setRoom_id(user.getGroup_id());
+		note.setRoom_id(user.getRoom_id());
 		
 		int result = noteSvc.insertNote(note);
 		if (result != 0) {
