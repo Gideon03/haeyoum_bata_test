@@ -1,13 +1,19 @@
 package com.haeyoum.member.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.haeyoum.member.model.FileVo;
@@ -15,6 +21,8 @@ import com.haeyoum.member.model.MemberInfo;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.FileUploadService;
 import com.haeyoum.member.service.MemberService;
+import com.haeyoum.room.model.RoomList;
+import com.haeyoum.room.service.RoomService;
 
 @Controller
 @RequestMapping("user")
@@ -27,13 +35,28 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberSvc;
-
+	@Autowired
+	private RoomService RoomSvc;
 	@Autowired
 	private FileUploadService fileService;
 	
 	@RequestMapping("/home")
 	public String userHome(@ModelAttribute("user") User user, Model model) {
 		return USER_HOME_VIEW;
+	}
+	
+	// ajax 통신을 통한 가입 목록 불러오기
+	@ResponseBody
+	@RequestMapping("/home/list/{stPage}")
+	public Map<String, List<RoomList>> groupList(@PathVariable("stPage") int stPage,
+			@ModelAttribute("user") User user) {
+		stPage *= 11;
+
+		Map<String, List<RoomList>> groupList = new HashMap<>();
+		List<RoomList> list = RoomSvc.groupList(stPage, user.getMember_id());
+		
+		groupList.put("list", list);
+		return groupList;
 	}
 	
 	// 파일업로드를 위한 기본경로 설정

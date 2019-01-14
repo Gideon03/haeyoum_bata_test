@@ -2,7 +2,6 @@ package com.haeyoum.room.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,23 +17,22 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.MemberService;
 import com.haeyoum.room.model.Room;
-import com.haeyoum.room.model.RoomList;
 import com.haeyoum.room.model.RoomMember;
 import com.haeyoum.room.service.RoomMemberService;
 import com.haeyoum.room.service.RoomService;
 import com.haeyoum.util.TempKey;
 
 @Controller
-@RequestMapping("/room")
+@RequestMapping("/haeyoum")
 @SessionAttributes("user")
 
 public class RoomController {
 
-	private final String GROUP_FORM = "room/regForm";
-	private final String GROUP_CONFIRM = "room/confirm";
-	private final String GROUP_LIST = "room/list";
-	private final String GROUP_INVITE = "room/inviteUser";
-	private final String GROUP_ROOM = "room/main";
+	private final String CREATA_VIEW = "haeyoum/create";
+	private final String GROUP_CONFIRM = "haeyoum/confirm";
+	private final String GROUP_LIST = "haeyoum/list";
+	private final String GROUP_INVITE = "haeyoum/inviteUser";
+	private final String GROUP_ROOM = "haeyoum/main";
 	
 	// redirect 할 때 이동경로에 "/" 존재하면 웹 어플리케이션 기준으로 주소생성
 	// "/" 없으면 현재 페이지 주소값을 이용하여 주소를 생성
@@ -49,9 +47,9 @@ public class RoomController {
 	@Autowired
 	private MemberService memberSvc;
 
-	@RequestMapping(value = "/regist", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String roomReg(@ModelAttribute("user") User user) {
-		return GROUP_FORM;
+		return CREATA_VIEW;
 	}
 
 	@ResponseBody
@@ -73,7 +71,7 @@ public class RoomController {
 		return key;
 	}
 
-	@RequestMapping(value = "/regist", method = RequestMethod.POST)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String roomReg(@ModelAttribute("user") User user, Room group, Model model) {
 
 		HashMap<String, Boolean> errors = new HashMap<>();
@@ -86,8 +84,7 @@ public class RoomController {
 			errors.put("errorCode", Boolean.TRUE);
 		}
 		if (!errors.isEmpty()) {
-			System.out.println();
-			return GROUP_FORM;
+			return CREATA_VIEW;
 		}
 		
 		try {
@@ -101,30 +98,6 @@ public class RoomController {
 		model.addAttribute("group", newGroup);
 
 		return GROUP_CONFIRM;
-	}
-
-	@RequestMapping("/list")
-	public String roomList(@ModelAttribute("user") User user, Model model) {
-		user.setRoom_id(0);
-		int stPage = 0;
-		
-		List<RoomList> list = RoomSvc.groupList(stPage, user.getMember_id());
-	
-		model.addAttribute("list", list);
-		return GROUP_LIST;
-	}
-
-	@ResponseBody
-	@RequestMapping("/list/{stPage}")
-	public Map<String, List<RoomList>> groupList(@PathVariable("stPage") int stPage,
-			@ModelAttribute("user") User user) {
-		stPage *= 11;
-
-		Map<String, List<RoomList>> groupList = new HashMap<>();
-		List<RoomList> list = RoomSvc.groupList(stPage, user.getMember_id());
-		
-		groupList.put("list", list);
-		return groupList;
 	}
 
 	@RequestMapping(value = "/inviteCode", method = RequestMethod.GET)
