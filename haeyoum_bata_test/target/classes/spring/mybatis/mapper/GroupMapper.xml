@@ -8,23 +8,23 @@
 
 	<select id="selectGroup" parameterType="hashmap" resultType="room">
 	select * from haeyoum.group 
-	where group_id = #{group_id}
+	where room_id = #{room_id}
 	</select>
 	
 	<select id="inviteGroup" parameterType="hashmap" resultType="room">
-	select * from haeyoum.group 
-	where group_code like #{group_code}
+	select * from haeyoums 
+	where roomkey like #{roomkey}
 	</select>
 	
 	<select id="confirmCode" parameterType="hashmap" resultType="int">
-	select count(*) from haeyoum.group 
-	where group_code like #{conCode}
+	select count(*) from haeyoums 
+	where roomkey like #{roomkey}
 	</select>
 	
 	<select id="groupList" parameterType="hashmap" resultType="roomList">
-	select group_id, group_name
-	from (haeyoum.group) join (haeyoum.group_member)
-	using (group_id)
+	select room_id, title, intro 
+	from (haeyoums) join (haeyoum_member)
+	using (room_id)
 	where group_member_id like #{member_id}
 	limit #{stPage}, 11;
 	</select>

@@ -8,7 +8,7 @@ $(window).scroll(function() {
    
     console.log("----------------------------------------------------------------------------");
    
-    if( scrollTop + windowHeight + 30 > documentHeight ){
+    if( scrollTop + windowHeight + 10 > documentHeight ){
     	
        	fatchList();
     	console.log("call scroll~!");
@@ -22,30 +22,33 @@ function fatchList() {
 	}
 	$.ajax({
 		type : "GET",
-	url : "${pageContext.request.contextPath}/group/groupList/" + stPage,
-	dataType : "json",
-	success : function(groupList) {
-		
-		if(groupList.list.length < 11){
-			isEnd = true;
-		}
-		
-		$.each(groupList.list, function(index, group){
-
-		var html = '<article class="blog-item-holder"><div class="entry-content relative"><div class="group-card center-relative"><h2 class="entry-title">'
-    		 + '<a href="${pageContext.request.contextPath}/group/room?group_id=' 
-    		 + group.group_id 
-    		 + '">'
-    		 + group.group_name
-    		 + '</a></h2><div class="clear"></div></div></div></article>'
-		
-			$("#gl").append(html);
+		url : "home/list/" + stPage,
+		dataType : "json",
+		success : function(data) {
+			
+			if(data.list.length < 11){
+				isEnd = true;
+			}
+			
+			$.each(data.list, function(index, haeyoum){
+	
+			var html = '<div class="col-xs-12 col-lg-4 h-list">'
+				html += '<h2>' + haeyoum.title + '</h2>'
+				html += '<p>' + haeyoum.intro + '</p>'
+				html += '<p class="btn-bottom"><a class="btn btn-default" href="${pageContext.request.contextPath}/'
+				
+				html += haeyoum.id 
+				html += '">'
+				html += 
+				html += '</a></h2><div class="clear"></div></div></div></article>'
+			
+				$("#gl").append(html);
+			});
+			stPage++;
+			
+		},
+		error : function() {
+			console.log("오류");
+			}
 		});
-		stPage++;
-		
-	},
-	error : function() {
-		console.log("오류");
-		}
-	});
 }

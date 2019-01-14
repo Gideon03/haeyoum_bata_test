@@ -23,8 +23,8 @@
    			<h2 class="title">로그인</h2>
    			<!-- sign-up form -->
    			<form class="inputForm" action="${pageContext.request.contextPath}/sign-in" method="post">
-				<input type="email" class="form-control input-lg" name="m_email" placeholder="메일주소를 입력해주세요" required>
-				<input type="password" class="form-control input-lg" name="m_password" placeholder="비밀번호를 입력해주세요" required>
+				<input type="email" class="form-control input-lg" name="email" placeholder="메일주소를 입력해주세요" required>
+				<input type="password" class="form-control input-lg" name="password" placeholder="비밀번호를 입력해주세요" required>
 			
 				<button class="btn btn-sign-up btn-lg btn-block m-t-10">로그인</button>
    			</form>

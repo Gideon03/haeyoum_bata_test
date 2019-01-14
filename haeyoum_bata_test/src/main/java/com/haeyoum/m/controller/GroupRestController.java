@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.haeyoum.member.model.User;
 import com.haeyoum.room.model.RoomList;
-import com.haeyoum.room.service.GroupMemberService;
-import com.haeyoum.room.service.GroupService;
+import com.haeyoum.room.service.RoomMemberService;
+import com.haeyoum.room.service.RoomService;
 
 @RestController
 @RequestMapping("/m")
@@ -23,15 +23,15 @@ import com.haeyoum.room.service.GroupService;
 public class GroupRestController {
 	
 	@Autowired
-	private GroupService groupSvc;
+	private RoomService groupSvc;
 	@Autowired
-	private GroupMemberService groupMemberSvc;
+	private RoomMemberService groupMemberSvc;
 	
 	@RequestMapping("/groupList")
 	public String groupList(@ModelAttribute("user") User user, Model model,HttpSession session,RoomList groupList) {
-		user.setGroup_id(0);
+		user.setRoom_id(0);
 		int stPage = 0;
-		groupList.setId(user.getGroup_id());
+		groupList.setId(user.getRoom_id());
 		
 		List<RoomList> list = groupSvc.groupList(stPage, user.getMember_id());
 	
@@ -51,7 +51,7 @@ public class GroupRestController {
 		for (int i = 1 ; i <= 100 ; i++) {
 			RoomList group = new RoomList();
 			group.setId(i);
-			group.setRoom_name("group_" + i);
+			group.setTitle("group_" + i);
 			list.add(group);
 		}
 		

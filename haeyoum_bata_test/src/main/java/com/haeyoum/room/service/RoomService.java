@@ -12,34 +12,34 @@ import com.haeyoum.room.model.RoomList;
 import com.haeyoum.room.repository.GroupDAO;
 
 @Service
-public class GroupService {
+public class RoomService {
 	
 	@Autowired
 	private GroupDAO groupDAO;
 	@Autowired
-	private GroupMemberService groupMemberSvc;
+	private RoomMemberService groupMemberSvc;
 	
 	@Transactional
-	public Room createGroup(Room group) {
+	public Room createGroup(Room room) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int result = groupDAO.insertGroup(group);
+		int result = groupDAO.insertGroup(room);
 		if (result != 0) {
-			groupMemberSvc.insertGroupMember(group.getId(), group.getRoom_master());
-			map.put("group_id", group.getId());
-			group = groupDAO.selectGroup(map);
+			groupMemberSvc.insertGroupMember(room.getRoom_id(), room.getRoom_master());
+			map.put("room_id", room.getRoom_id());
+			room = groupDAO.selectGroup(map);
 		}
-		return group;
+		return room;
 	}
 	
-	public Room selectGroup(int group_id) {
+	public Room selectGroup(int room_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("group_id", group_id);
+		map.put("room_id", room_id);
 		return groupDAO.selectGroup(map);
 	}
 	
-	public int confirmGroup(String conCode) {
+	public int confirmGroup(String roomkey) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("conCode", conCode);
+		map.put("roomkey", roomkey);
 		return groupDAO.confirmCode(map);
 	}
 	 
@@ -50,10 +50,10 @@ public class GroupService {
 		return groupDAO.groupList(map);
 	}
 	
-	public Room inviteGroup(String reqCode, String member_id) {
+	public Room inviteGroup(String roomkey, String member_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("group_code", reqCode);
-		map.put("group_member_id", member_id);
+		map.put("roomkey", roomkey);
+		map.put("member_id", member_id);
 		return groupDAO.inviteGroup(map);
 	}
 

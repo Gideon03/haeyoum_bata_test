@@ -17,12 +17,13 @@ import com.haeyoum.member.service.FileUploadService;
 import com.haeyoum.member.service.MemberService;
 
 @Controller
+@RequestMapping("user")
 @SessionAttributes("user")
 public class MemberController {
 
 	private final String USER_HOME_VIEW = "user/home";
 	private final String USER_EDIT_VIEW = "user/info-edit";
-	private final String REDIRECT_EDIT_VIEW = "redirect:/user-edit";
+	private final String REDIRECT_EDIT_VIEW = "redirect:/user/edit";
 
 	@Autowired
 	private MemberService memberSvc;
@@ -30,7 +31,7 @@ public class MemberController {
 	@Autowired
 	private FileUploadService fileService;
 	
-	@RequestMapping("user-home")
+	@RequestMapping("/home")
 	public String userHome(@ModelAttribute("user") User user, Model model) {
 		return USER_HOME_VIEW;
 	}
@@ -42,7 +43,7 @@ public class MemberController {
 		return realPath;
 	}
 
-	@RequestMapping(value = "user-edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String update(@ModelAttribute("user") User user, Model model) {
 		// 접속 유저의 정보 가져오기
 		MemberInfo memInfo = memberSvc.selectInfo(user.getMember_id());
@@ -51,12 +52,12 @@ public class MemberController {
 	}
 
 	
-	@RequestMapping(value = "user-edit", method = RequestMethod.POST)	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)	
 	public String update(Model model, FileVo file, MemberInfo memInfo, 
 			@ModelAttribute("realPath") String realPath,
 			@ModelAttribute("user") User user){
 		
-		memInfo.setId(user.getMember_id());	//정보 수정할 유저 ID 설정
+		memInfo.setEmail(user.getMember_id());	//정보 수정할 유저 ID 설정
 		
 		// 유저프로필 이미지 저장
 		fileService.saveFile(realPath, file);

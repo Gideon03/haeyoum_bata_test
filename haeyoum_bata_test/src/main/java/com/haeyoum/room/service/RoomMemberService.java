@@ -10,7 +10,7 @@ import com.haeyoum.room.model.RoomMember;
 import com.haeyoum.room.repository.GroupMemberDAO;
 
 @Service
-public class GroupMemberService {
+public class RoomMemberService {
 	
 	@Autowired
 	private GroupMemberDAO GMDAO;

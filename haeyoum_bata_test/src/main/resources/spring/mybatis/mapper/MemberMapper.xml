@@ -44,40 +44,40 @@
 	<!-- create info -->
 	<insert id="insertInfo" parameterType="memberInfo">
 		insert into member_info
-		values (#{id}, #{image}, #{phone})
+		values (#{email}, #{image}, #{phone})
 	</insert>
 	
 	<!-- select Info -->
 	<select id="selectInfo" resultType="memberInfo">
 		select * from member_info
-		where id = #{id}
+		where email = #{email}
 	</select>
 	
 	<update id="editInfo" parameterType="memberInfo">
 		update member_info
 		set image = #{image}, 
 			phone = #{phone}
-		where id = #{id}
+		where email = #{email}
 	</update>
 	
 <!-- Member Log -->
 	<!-- create Log -->
 	<insert id="insertLog">
 		insert into member_log
-		values (#{id}, now())
+		values (#{email}, now())
 	</insert>
 	
 	<!-- select Log -->
 	<select id="selectLog" resultType="memberLog">
 		select * from member_log
-		where id = #{id}
+		where email = #{email}
 	</select>
 	
 	<!-- update Log -->
 	<update id="updateLog">
 		update member_log
 		set recent_date = now()
-		where id = #{id}
+		where email = #{email}
 	</update>
 	
 </mapper>

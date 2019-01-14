@@ -87,7 +87,7 @@ public class VideoController {
 		
 		
 		video.setWriter(memberSvc.selectByUser(user.getMember_id()).getUser_name());
-		video.setRoom_id(user.getGroup_id());
+		video.setRoom_id(user.getRoom_id());
 
 		fileService.saveFile(realPath, file);
 		

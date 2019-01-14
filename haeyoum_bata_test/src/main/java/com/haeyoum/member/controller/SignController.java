@@ -1,7 +1,5 @@
 package com.haeyoum.member.controller;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +22,7 @@ import com.haeyoum.member.service.MemberService;
 @SessionAttributes("user")
 public class SignController {
 	private final String HOME = "redirect:/";
-	private final String USER_HOME = "redirect:/user-home";
+	private final String USER_HOME = "redirect:/user/home";
 	private final String HOME_VIEW = "index";
 	private final String SIGN_UP_VIEW = "sign/sign-up";
 	private final String SIGN_IN_VIEW = "sign/sign-in";
@@ -72,15 +70,15 @@ public class SignController {
 	
 	//이메일 인증 코드 검증
     @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
-    public String emailConfirm(@RequestParam("memberAuthKey")String m_authkey, Model model, RedirectAttributes rttr) throws Exception { 
+    public String emailConfirm(@RequestParam("authKey")String authkey, Model model, RedirectAttributes rttr) throws Exception { 
         
-        System.out.println("cont get user : " + m_authkey);
-        if(m_authkey == null) {
+        System.out.println("cont get user : " + authkey);
+        if(authkey == null) {
             rttr.addFlashAttribute("msg", "비정상적인 접근 입니다. 다시 인증해 주세요");
             return HOME;
         }
         
-        Member member = memberSvc.userAuth(m_authkey);
+        Member member = memberSvc.userAuth(authkey);
         if(member == null) {
             rttr.addFlashAttribute("msg", "비정상적인 접근 입니다. 다시 인증해 주세요");
             return HOME;
@@ -98,7 +96,7 @@ public class SignController {
 
 	@RequestMapping(value = "/sign-in", method = RequestMethod.POST)
 	public String login(Model model, String email, String password) {
-		
+		System.out.println(email);
 		Member member = null;
 		try {
 			member = memberSvc.selectByUser(email);
@@ -109,11 +107,13 @@ public class SignController {
 		LoginError errors = memberSvc.confirmMember(member, password);
 		if (errors.isIdError() || errors.isPwError() || errors.isNotConfirmUser()) {
 			model.addAttribute("errors", errors);
+			return SIGN_IN_VIEW;
 		} else {
 			User user = memberSvc.loginUser(member);
 			model.addAttribute("user", user);
+			return USER_HOME;
 		}
-		return USER_HOME;
+		
 	}
 //	-------------------------------------------------------------------------------------
 	
