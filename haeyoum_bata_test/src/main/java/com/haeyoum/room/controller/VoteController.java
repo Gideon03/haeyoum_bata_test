@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.haeyoum.member.model.User;
+import com.haeyoum.error.LoginError;
 import com.haeyoum.member.model.Member;
 import com.haeyoum.member.service.MemberService;
 import com.haeyoum.room.model.Vote;
@@ -242,16 +243,13 @@ public class VoteController {
 		
 		Member member = memberSvc.selectByUser(user.getMember_id());
 		
-		HashMap<String, Object> errors = memberSvc.confirmMember(member, delete_pw);
-		model.addAttribute("errors", errors);
+		LoginError errors = memberSvc.confirmMember(member, delete_pw);
 		
-		if (errors.containsKey("notFoundUser")) {
-			errors.put("idError", Boolean.TRUE);
-		}
-		if (!errors.isEmpty()) {
+		if (errors.isIdError() || errors.isPwError() || errors.isNotConfirmUser()) {
+			model.addAttribute("errors", errors);
 			model.addAttribute("con_id", con_id);
 			return VOTE_DELETE;
-		} 
+		}
 	
 		return VOTE_DELETE;
 	

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.haeyoum.error.LoginError;
 import com.haeyoum.handler.MailHandler;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.model.Member;
@@ -70,15 +71,15 @@ public class MemberService {
 	}
     
     //로그인 유저 데이터 검증
-    public HashMap<String, Object> confirmMember(Member member, String m_password) {
-		HashMap<String, Object> errors = new HashMap<String, Object>();
-		if (member == null) {
-			errors.put("notFoundUser", Boolean.TRUE);
+    public LoginError confirmMember(Member member, String password) {
+		LoginError errors = new LoginError();
+    	if (member == null) {
+			errors.setIdError(true);
 			return errors;
-		} else if (!member.getPassword().equals(m_password)) {
-			errors.put("pwError", Boolean.TRUE);
+		} else if (!member.getPassword().equals(password)) {
+			errors.setPwError(true);
 		} else if (!member.getAuthkey().equals("0")) {
-			errors.put("notConfirmUser", Boolean.TRUE);
+			errors.setNotConfirmUser(true);
 		}
 		return errors;
 	}

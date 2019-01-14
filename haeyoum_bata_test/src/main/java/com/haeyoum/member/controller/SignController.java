@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.haeyoum.error.LoginError;
 import com.haeyoum.member.model.Member;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.MemberService;
@@ -96,32 +97,23 @@ public class SignController {
 	}
 
 	@RequestMapping(value = "/sign-in", method = RequestMethod.POST)
-	public String login(Model model, String m_email, String m_password) {
+	public String login(Model model, String email, String password) {
 		
 		Member member = null;
 		try {
-			member = memberSvc.selectByUser(m_email);
+			member = memberSvc.selectByUser(email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		HashMap<String, Object> errors = memberSvc.confirmMember(member, m_password);
-		model.addAttribute("errors", errors);
-		if (errors.containsKey("notFoundUser")) {
-			errors.put("idError", Boolean.TRUE);
-			return SIGN_IN_VIEW;
-		} else if (errors.containsKey("pwError")) {
-			return SIGN_IN_VIEW;
-		} else if (errors.containsKey("notConfirmUser")) {
-			return SIGN_IN_VIEW;
+		LoginError errors = memberSvc.confirmMember(member, password);
+		if (errors.isIdError() || errors.isPwError() || errors.isNotConfirmUser()) {
+			model.addAttribute("errors", errors);
 		} else {
-			
 			User user = memberSvc.loginUser(member);
-			user.setLogin(true);
 			model.addAttribute("user", user);
-			
-			return USER_HOME;
 		}
+		return USER_HOME;
 	}
 //	-------------------------------------------------------------------------------------
 	
