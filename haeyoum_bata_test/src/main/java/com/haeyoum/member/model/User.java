@@ -3,7 +3,7 @@ package com.haeyoum.member.model;
 public class User {
 
 	private String member_id;
-	private boolean Login = false;
+	private boolean login = false;
 	private int group_id = 0;
 
 	public User() {
@@ -11,7 +11,7 @@ public class User {
 
 	public User(String member_id, boolean login) {
 		this.member_id = member_id;
-		Login = login;
+		this.login = login;
 	}
 
 	public String getMember_id() {
@@ -23,11 +23,11 @@ public class User {
 	}
 
 	public boolean isLogin() {
-		return Login;
+		return login;
 	}
 
 	public void setLogin(boolean login) {
-		Login = login;
+		this.login = login;
 	}
 
 	public int getGroup_id() {

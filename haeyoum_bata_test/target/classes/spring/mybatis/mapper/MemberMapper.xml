@@ -11,73 +11,73 @@
 	<select id="chkEmail" resultType="int">
 		select count(*) 
 		from member 
-		where m_email = #{m_email}
+		where email = #{email}
 	</select>
 
 	<!-- sign up -->
 	<insert id="insertUser" parameterType="member">
 		insert into member 
-		values (#{m_email}, #{m_password}, #{m_name}, #{m_authkey}, 1, 0)
+		values (#{email}, #{password}, #{user_name}, #{authkey}, 1, 0)
 	</insert>
 	
 	<!-- search authkey user -->
 	<select id="chkAuthkey" resultType="member">
 		select * from member 
-		where m_authkey = #{m_authkey}
+		where authkey = #{authkey}
 	</select>
 	
 	<!-- user activate -->
 	<update id="keyConfirm" parameterType="member">
 		update member 
-		set m_authkey = 0 
-		where m_email = #{m_email}
+		set authkey = 0 
+		where email = #{email}
 	</update>
 		
 	<!-- sign in -->
 	<select id="selectByUser" resultType="member">
 		select *
 		from member 
-		where m_email = #{m_email}
+		where email = #{email}
 	</select>
 	
 <!-- Member Info -->
 	<!-- create info -->
 	<insert id="insertInfo" parameterType="memberInfo">
 		insert into member_info
-		values (#{m_email}, #{m_image}, #{m_phone})
+		values (#{id}, #{image}, #{phone})
 	</insert>
 	
 	<!-- select Info -->
 	<select id="selectInfo" resultType="memberInfo">
 		select * from member_info
-		where m_email = #{m_email}
+		where id = #{id}
 	</select>
 	
 	<update id="editInfo" parameterType="memberInfo">
 		update member_info
-		set m_image = #{m_image}, 
-			m_phone = #{m_phone}
-		where m_email = #{m_email}
+		set image = #{image}, 
+			phone = #{phone}
+		where id = #{id}
 	</update>
 	
 <!-- Member Log -->
 	<!-- create Log -->
 	<insert id="insertLog">
 		insert into member_log
-		values (#{m_email}, now())
+		values (#{id}, now())
 	</insert>
 	
 	<!-- select Log -->
 	<select id="selectLog" resultType="memberLog">
 		select * from member_log
-		where m_email = #{m_email}
+		where id = #{id}
 	</select>
 	
 	<!-- update Log -->
 	<update id="updateLog">
 		update member_log
-		set m_recent_date = now()
-		where m_email = #{m_email}
+		set recent_date = now()
+		where id = #{id}
 	</update>
 	
 </mapper>
