@@ -38,7 +38,7 @@ public class MemberService {
         sendMail.setText(
                 new StringBuffer()
                 .append("<h1>메일인증</h1>")
-                .append("<a href='http://localhost:8080/haeyoum_beta_test/emailConfirm?memberAuthKey=")
+                .append("<a href='http://localhost:8080/haeyoum_beta_test/emailConfirm?authKey=")
                 .append(key)
                 .append("' target='_blank'>이메일 인증 확인</a>")
                 .toString());
@@ -75,10 +75,13 @@ public class MemberService {
 		LoginError errors = new LoginError();
     	if (member == null) {
 			errors.setIdError(true);
+			System.out.println("id");
 			return errors;
 		} else if (!member.getPassword().equals(password)) {
+			System.out.println("password");
 			errors.setPwError(true);
 		} else if (!member.getAuthkey().equals("0")) {
+			System.out.println("key");
 			errors.setNotConfirmUser(true);
 		}
 		return errors;
