@@ -10,13 +10,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basic.css" type="text/css">
 </head>
 <body>
-	<header class="navbar navbar-default navbar-static-top">
-      <div class="container">
-      	<div class="margin-auto brand">
-          <a class="navbar-brand " href="${pageContext.request.contextPath}/">해 윰</a>
-          </div>
-      </div>
-    </header>
+	<!-- nav bar -->
+		<%@ include file="/WEB-INF/view/util/sign_nav.jsp"%>
 
 	<div class="container">
 		<div class="col-xs-12 col-sm-12 col-lg-6 margin-auto">

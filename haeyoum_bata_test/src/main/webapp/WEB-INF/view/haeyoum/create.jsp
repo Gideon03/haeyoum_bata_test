@@ -11,7 +11,7 @@
 	</head> 
 	<body class="sti-body">
 		<!-- nav bar -->
-		<%@ include file="/WEB-INF/view/util/nav.jsp"%>
+		<%@ include file="/WEB-INF/view/util/user_nav.jsp"%>
 		
 		<div class="container userArea">
 			<div class="row row-offcanvas row-offcanvas-right">
