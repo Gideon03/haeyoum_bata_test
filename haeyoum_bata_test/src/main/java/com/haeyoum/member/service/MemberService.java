@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.haeyoum.error.LoginError;
 import com.haeyoum.handler.MailHandler;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.model.Member;
@@ -37,7 +38,7 @@ public class MemberService {
         sendMail.setText(
                 new StringBuffer()
                 .append("<h1>메일인증</h1>")
-                .append("<a href='http://localhost:8080/haeyoum_beta_test/emailConfirm?memberAuthKey=")
+                .append("<a href='http://localhost:8080/haeyoum_beta_test/emailConfirm?authKey=")
                 .append(key)
                 .append("' target='_blank'>이메일 인증 확인</a>")
                 .toString());
@@ -70,15 +71,18 @@ public class MemberService {
 	}
     
     //로그인 유저 데이터 검증
-    public HashMap<String, Object> confirmMember(Member member, String m_password) {
-		HashMap<String, Object> errors = new HashMap<String, Object>();
-		if (member == null) {
-			errors.put("notFoundUser", Boolean.TRUE);
+    public LoginError confirmMember(Member member, String password) {
+		LoginError errors = new LoginError();
+    	if (member == null) {
+			errors.setIdError(true);
+			System.out.println("id");
 			return errors;
-		} else if (!member.getPassword().equals(m_password)) {
-			errors.put("pwError", Boolean.TRUE);
+		} else if (!member.getPassword().equals(password)) {
+			System.out.println("password");
+			errors.setPwError(true);
 		} else if (!member.getAuthkey().equals("0")) {
-			errors.put("notConfirmUser", Boolean.TRUE);
+			System.out.println("key");
+			errors.setNotConfirmUser(true);
 		}
 		return errors;
 	}
@@ -102,7 +106,7 @@ public class MemberService {
     
     //유저정보 변경
     public int updateInfo(MemberInfo memInfo) {
-    	if (dao.selectInfo(memInfo.getId()) == null) {
+    	if (dao.selectInfo(memInfo.getEmail()) == null) {
     		dao.createInfo(memInfo);
     	}
     	return dao.updateInfo(memInfo);

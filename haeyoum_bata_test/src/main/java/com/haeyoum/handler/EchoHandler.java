@@ -6,9 +6,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.haeyoum.group.model.Chat;
-import com.haeyoum.group.service.ChatService;
 import com.haeyoum.member.model.User;
+import com.haeyoum.room.model.Chat;
+import com.haeyoum.room.service.ChatService;
 import com.haeyoum.util.DateUtil;
 
 import java.util.*;
@@ -41,7 +41,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		System.out.printf("%s로 부터 %s 받음\n", user.getMember_id(), message.getPayload());
 		
 		Chat chat = chatSvc.insertChat(
-				new Chat(user.getGroup_id(), 
+				new Chat(user.getRoom_id(), 
 						user.getMember_id(), 
 						message.getPayload()));
 		
@@ -50,7 +50,7 @@ public class EchoHandler extends TextWebSocketHandler {
 			Map<String, Object> reqMap = sess.getAttributes();
 			User reqUser = (User) reqMap.get("user");
 			
-			if (reqUser.getGroup_id() == user.getGroup_id()) {
+			if (reqUser.getRoom_id() == user.getRoom_id()) {
 				
 				sess.sendMessage(
 						new TextMessage(user.getMember_id() 

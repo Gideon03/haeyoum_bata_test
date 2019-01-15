@@ -59,6 +59,7 @@ header .brand{
 .h-list {
  position:relative;
  height: 200px;
+ margin: 20px auto;
 }
 .h-list h2{
  text-overflow:ellipsis;
@@ -77,7 +78,7 @@ line-height: 1.5em;
 }
 .btn-bottom {
  position:absolute;
- bottom: 0;
+ bottom: 15px;
 }
 
 .title {

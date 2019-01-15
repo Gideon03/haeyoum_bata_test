@@ -1,7 +1,5 @@
 package com.haeyoum.member.controller;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.haeyoum.error.LoginError;
 import com.haeyoum.member.model.Member;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.MemberService;
@@ -23,7 +22,7 @@ import com.haeyoum.member.service.MemberService;
 @SessionAttributes("user")
 public class SignController {
 	private final String HOME = "redirect:/";
-	private final String USER_HOME = "redirect:/user-home";
+	private final String USER_HOME = "redirect:/user/home";
 	private final String HOME_VIEW = "index";
 	private final String SIGN_UP_VIEW = "sign/sign-up";
 	private final String SIGN_IN_VIEW = "sign/sign-in";
@@ -71,15 +70,15 @@ public class SignController {
 	
 	//이메일 인증 코드 검증
     @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
-    public String emailConfirm(@RequestParam("memberAuthKey")String m_authkey, Model model, RedirectAttributes rttr) throws Exception { 
+    public String emailConfirm(@RequestParam("authKey")String authkey, Model model, RedirectAttributes rttr) throws Exception { 
         
-        System.out.println("cont get user : " + m_authkey);
-        if(m_authkey == null) {
+        System.out.println("cont get user : " + authkey);
+        if(authkey == null) {
             rttr.addFlashAttribute("msg", "비정상적인 접근 입니다. 다시 인증해 주세요");
             return HOME;
         }
         
-        Member member = memberSvc.userAuth(m_authkey);
+        Member member = memberSvc.userAuth(authkey);
         if(member == null) {
             rttr.addFlashAttribute("msg", "비정상적인 접근 입니다. 다시 인증해 주세요");
             return HOME;
@@ -96,32 +95,25 @@ public class SignController {
 	}
 
 	@RequestMapping(value = "/sign-in", method = RequestMethod.POST)
-	public String login(Model model, String m_email, String m_password) {
-		
+	public String login(Model model, String email, String password) {
+		System.out.println(email);
 		Member member = null;
 		try {
-			member = memberSvc.selectByUser(m_email);
+			member = memberSvc.selectByUser(email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		HashMap<String, Object> errors = memberSvc.confirmMember(member, m_password);
-		model.addAttribute("errors", errors);
-		if (errors.containsKey("notFoundUser")) {
-			errors.put("idError", Boolean.TRUE);
-			return SIGN_IN_VIEW;
-		} else if (errors.containsKey("pwError")) {
-			return SIGN_IN_VIEW;
-		} else if (errors.containsKey("notConfirmUser")) {
+		LoginError errors = memberSvc.confirmMember(member, password);
+		if (errors.isIdError() || errors.isPwError() || errors.isNotConfirmUser()) {
+			model.addAttribute("errors", errors);
 			return SIGN_IN_VIEW;
 		} else {
-			
 			User user = memberSvc.loginUser(member);
-			user.setLogin(true);
 			model.addAttribute("user", user);
-			
 			return USER_HOME;
 		}
+		
 	}
 //	-------------------------------------------------------------------------------------
 	

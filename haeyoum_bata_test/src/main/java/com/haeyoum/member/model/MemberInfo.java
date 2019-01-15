@@ -1,23 +1,23 @@
 package com.haeyoum.member.model;
 
 public class MemberInfo {				
-	private String id;
+	private String email;
 	private String image;			
 	private String phone;			
 				
 	public MemberInfo() {			
 	}
 	
-	public MemberInfo(String id) {
-		this.id = id;
+	public MemberInfo(String email) {
+		this.email = email;
 	}
 
-	public String getId() {
-		return id;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getImage() {

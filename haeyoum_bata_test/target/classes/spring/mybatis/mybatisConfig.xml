@@ -9,22 +9,22 @@
   		<typeAlias type="com.haeyoum.member.model.Member" alias="member" />
   		<typeAlias type="com.haeyoum.member.model.MemberInfo" alias="memberInfo" />
   		<typeAlias type="com.haeyoum.member.model.MemberLog" alias="memberLog" />
-  		<typeAlias type="com.haeyoum.group.model.Group" alias="group" />
-  		<typeAlias type="com.haeyoum.group.model.GroupList" alias="groupList" />
-  		<typeAlias type="com.haeyoum.group.model.GroupMember" alias="groupMember" />
-  		<typeAlias type="com.haeyoum.group.model.Chat" alias="chat" />
-  		<typeAlias type="com.haeyoum.group.model.Note" alias="note" />
-  		<typeAlias type="com.haeyoum.group.model.NoteUpdate" alias="updateNote" />
-  		<typeAlias type="com.haeyoum.group.model.Location" alias="location" />
-  		<typeAlias type="com.haeyoum.group.model.Plan" alias="plan" />
-  		<typeAlias type="com.haeyoum.group.model.PlanContent" alias="planCon" />
-  		<typeAlias type="com.haeyoum.group.model.Vote" alias="vote" />
-  		<typeAlias type="com.haeyoum.group.model.VoteContent" alias="voteCon" />
-  		<typeAlias type="com.haeyoum.group.model.VoteUser" alias="voteUser" />
- 		<typeAlias type="com.haeyoum.group.model.Video" alias="video" />
- 		<typeAlias type="com.haeyoum.group.model.VideoView" alias="videoView" />
- 		<typeAlias type="com.haeyoum.group.model.Photo" alias="photo" />
-  		<typeAlias type="com.haeyoum.group.model.PhotoView" alias="photoView" />
-  		<typeAlias type="com.haeyoum.group.model.PhotoFile" alias="photoFile" />
+  		<typeAlias type="com.haeyoum.room.model.Room" alias="room" />
+  		<typeAlias type="com.haeyoum.room.model.RoomList" alias="roomList" />
+  		<typeAlias type="com.haeyoum.room.model.RoomMember" alias="roomMember" />
+  		<typeAlias type="com.haeyoum.room.model.Chat" alias="chat" />
+  		<typeAlias type="com.haeyoum.room.model.Note" alias="note" />
+  		<typeAlias type="com.haeyoum.room.model.NoteUpdate" alias="updateNote" />
+  		<typeAlias type="com.haeyoum.room.model.Location" alias="location" />
+  		<typeAlias type="com.haeyoum.room.model.Plan" alias="plan" />
+  		<typeAlias type="com.haeyoum.room.model.PlanContent" alias="planCon" />
+  		<typeAlias type="com.haeyoum.room.model.Vote" alias="vote" />
+  		<typeAlias type="com.haeyoum.room.model.VoteContent" alias="voteCon" />
+  		<typeAlias type="com.haeyoum.room.model.VoteUser" alias="voteUser" />
+ 		<typeAlias type="com.haeyoum.room.model.Video" alias="video" />
+ 		<typeAlias type="com.haeyoum.room.model.VideoView" alias="videoView" />
+ 		<typeAlias type="com.haeyoum.room.model.Photo" alias="photo" />
+  		<typeAlias type="com.haeyoum.room.model.PhotoView" alias="photoView" />
+  		<typeAlias type="com.haeyoum.room.model.PhotoFile" alias="photoFile" />
      </typeAliases>
   </configuration>
