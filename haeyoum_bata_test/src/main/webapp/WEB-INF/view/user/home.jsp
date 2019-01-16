@@ -27,47 +27,14 @@
 		              <p>여기에서 모임을 만들어 보세요!</p>
 		              <p class="btn-bottom"><a class="btn btn-default" href="${pageContext.request.contextPath}/haeyoum/create" role="button">모임 만들기 &raquo;</a></p>
 		            </div><!--/.col-xs-12.col-lg-4-->
+		            <c:forEach var="room" items="${list}">
 		            <div class="col-xs-12 col-lg-4 h-list">
-		              <h2>테스트 해윰</h2>
-		              <p>테스트 해윰 소개글 없으면 그냥 빈공간이려나?</p>
-		              <p class="btn-bottom"><a class="btn btn-default" href="#" role="button">모임 들어가기 &raquo;</a></p>
+		              <h2>${room.title}</h2>
+		              <p>${room.intro}</p>
+		              <p class="btn-bottom"><a class="btn btn-default" href="${pageContext.request.contextPath}/haeyoum/${room.room_id}/" role="button">모임 들어가기 &raquo;</a></p>
 		            </div><!--/.col-xs-12.col-lg-4-->
-		            <div class="col-xs-12 col-lg-4 h-list">
-		              <h2>Heading</h2>
-		              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		              <p class="btn-bottom"><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-		            </div><!--/.col-xs-12.col-lg-4-->
-		            <div class="col-xs-12 col-lg-4 h-list">
-		              <h2>테스트 해윰</h2>
-		              <p>테스트 해윰 소개글 없으면 그냥 빈공간이려나?</p>
-		              <p class="btn-bottom"><a class="btn btn-default" href="#" role="button">모임 들어가기 &raquo;</a></p>
-		            </div><!--/.col-xs-12.col-lg-4-->
-		            <div class="col-xs-12 col-lg-4 h-list">
-		              <h2>Heading</h2>
-		              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		              <p class="btn-bottom"><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-		            </div><!--/.col-xs-12.col-lg-4-->
-		            <div class="col-xs-12 col-lg-4 h-list">
-		              <h2>테스트 해윰</h2>
-		              <p>테스트 해윰 소개글 없으면 그냥 빈공간이려나?</p>
-		              <p class="btn-bottom"><a class="btn btn-default" href="#" role="button">모임 들어가기 &raquo;</a></p>
-		            </div><!--/.col-xs-12.col-lg-4-->
-		            <div class="col-xs-12 col-lg-4 h-list">
-		              <h2>Heading</h2>
-		              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		              <p class="btn-bottom"><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-		            </div><!--/.col-xs-12.col-lg-4-->
-		            <div class="col-xs-12 col-lg-4 h-list">
-		              <h2>테스트 해윰</h2>
-		              <p>테스트 해윰 소개글 없으면 그냥 빈공간이려나?</p>
-		              <p class="btn-bottom"><a class="btn btn-default" href="#" role="button">모임 들어가기 &raquo;</a></p>
-		            </div><!--/.col-xs-12.col-lg-4-->
-		            <div class="col-xs-12 col-lg-4 h-list">
-		              <h2>Heading</h2>
-		              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		              <p class="btn-bottom"><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-		            </div><!--/.col-xs-12.col-lg-4-->
-		          </div><!--/row-->
+		            </c:forEach>
+		          </div><!--/row #listSection-->
 		        </div><!--/.col-xs-12.col-sm-9-->
 		
 		      </div><!--/row-->

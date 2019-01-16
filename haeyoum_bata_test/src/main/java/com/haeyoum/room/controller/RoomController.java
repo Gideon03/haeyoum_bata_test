@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.MemberService;
@@ -29,16 +30,15 @@ import com.haeyoum.util.TempKey;
 public class RoomController {
 
 	private final String CREATA_VIEW = "haeyoum/create";
-	private final String GROUP_CONFIRM = "haeyoum/confirm";
-	private final String GROUP_LIST = "haeyoum/list";
-	private final String GROUP_INVITE = "haeyoum/inviteUser";
-	private final String GROUP_ROOM = "haeyoum/main";
+	private final String HOME_VIEW = "haeyoum/home";
+	private final String INVITE_VIEW = "haeyoum/inviteUser";
 	
 	// redirect 할 때 이동경로에 "/" 존재하면 웹 어플리케이션 기준으로 주소생성
 	// "/" 없으면 현재 페이지 주소값을 이용하여 주소를 생성
 	// ex) redirect:/update => http://localhost:8080/Haeyoum/update
 	//     redirect:update => http://localhost:8080/Haeyoum/member/update
-	private final String REDIRECT_GROUP_LIST = "redirect:roomList";
+	private final String REDIRECT_USER_HOME = "redirect:/user/home";
+	private final String REDIRECT_HAEYOUM_ROOM = "redirect:/haeyoum/";
 
 	@Autowired
 	private RoomService RoomSvc;
@@ -48,7 +48,7 @@ public class RoomController {
 	private MemberService memberSvc;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String roomReg(@ModelAttribute("user") User user) {
+	public String createRoom(@ModelAttribute("user") User user) {
 		return CREATA_VIEW;
 	}
 
@@ -61,7 +61,7 @@ public class RoomController {
 		
 		// key 중복값 확인
 		while (true) {
-			int result = RoomSvc.confirmGroup(generateKey);
+			int result = RoomSvc.confirmKey(generateKey);
 
 			if (result == 0) {
 				key = "{\"value\" : \"" + generateKey + "\"}";
@@ -72,105 +72,110 @@ public class RoomController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String roomReg(@ModelAttribute("user") User user, Room group, Model model) {
+	public String createRoom(@ModelAttribute("user") User user, Room room, Model model, RedirectAttributes redirAtt) {
 
 		HashMap<String, Boolean> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
 
-		if (group.getRoomkey() == null || group.getRoomkey().trim().length() == 0) {
+		if (room.getRoomkey() == null || room.getRoomkey().trim().length() == 0) {
 			errors.put("emptyCode", Boolean.TRUE);
 		} 
-		if (group.getRoomkey().equals("errorCode")) {
+		if (room.getRoomkey().equals("errorCode")) {
 			errors.put("errorCode", Boolean.TRUE);
 		}
 		if (!errors.isEmpty()) {
 			return CREATA_VIEW;
 		}
-		
+		System.out.println(room.getTitle());
 		try {
-			group.setRoom_master(memberSvc.selectByUser(user.getMember_id()).getUser_name());
+			room.setRoom_master(user.getMember_id());
+			
+			Room newRoom = RoomSvc.createRoom(room);
+			
+			user.setRoom_id(newRoom.getRoom_id()); 
+			
+			return REDIRECT_HAEYOUM_ROOM + newRoom.getRoom_id() + "/";
+
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("aaa");
+			model.addAttribute("msg", "방을 개설중 문제가 발생하였습니다.\n지속적인 문제가 발생할 경우 관리자에게 문의 하시기 바랍니다.");
+			return CREATA_VIEW;
 		}
-		Room newGroup = RoomSvc.createGroup(group);
 
-		user.setRoom_id(newGroup.getRoom_id()); 
-		model.addAttribute("group", newGroup);
-
-		return GROUP_CONFIRM;
+		
 	}
 
-	@RequestMapping(value = "/inviteCode", method = RequestMethod.GET)
-	public String inviteCode() {
-		return GROUP_INVITE;
+	@RequestMapping(value = "/invite", method = RequestMethod.GET)
+	public String invite() {
+		return INVITE_VIEW;
 	}
 
 	@ResponseBody
-	@RequestMapping("/inviteCode/{inviteCode}")
-	public String confirmCode(@PathVariable("inviteCode") String reqCode) {
+	@RequestMapping("/roomkey/{roomkey}")
+	public String confirmKey(@PathVariable("roomkey") String roomkey) {
 		
-		int result = RoomSvc.confirmGroup(reqCode);
-		String code = "{\"value\" : \"" + result + "\"}";
+		int result = RoomSvc.confirmKey(roomkey);
+		String confirmKey = "{\"value\" : \"" + result + "\"}";
 		
-		return code;
+		return confirmKey;
 	}
 
-	@RequestMapping(value = "/inviteCode", method = RequestMethod.POST)
-	public String inviteCode(@ModelAttribute("user") User user, @RequestParam("inviteCode") String reqCode,
+	@RequestMapping(value = "/invite", method = RequestMethod.POST)
+	public String invite(@ModelAttribute("user") User user, @RequestParam("roomkey") String roomkey,
 			Model model) {
 
 		HashMap<String, Boolean> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
 
-		if (reqCode == null) {
+		if (roomkey == null) {
 			errors.put("emptyCode", Boolean.TRUE);
 		}
-		if (reqCode.equals("errorCode")) {
+		if (roomkey.equals("errorCode")) {
 			errors.put("errorCode", Boolean.TRUE);
 		}
 		
-		Room inGroup = RoomSvc.inviteGroup(reqCode, user.getMember_id());
-		if(inGroup == null) {
+		Room inRoom = RoomSvc.inviteRoom(roomkey);
+		if(inRoom == null) {
 			errors.put("emptyGroup", Boolean.TRUE);
 		}
 		 
-		int confirmMember = roomMemberSvc.confirmGroupMember(inGroup.getRoom_id());
+		int confirmMember = roomMemberSvc.confirmRoomMember(inRoom.getRoom_id(), user.getMember_id());
 		if (confirmMember != 0) {
 			errors.put("joined", Boolean.TRUE);
 		}
 		
-		int countMember = roomMemberSvc.countGroupMember(inGroup.getRoom_id());
-		if (countMember >= inGroup.getMax()) {
+		int countMember = roomMemberSvc.countRoomMember(inRoom.getRoom_id());
+		if (countMember >= inRoom.getMax()) {
 			errors.put("fullMember", Boolean.TRUE);
 		}
 		
 		if (!errors.isEmpty()) {
-			return GROUP_INVITE;
+			return INVITE_VIEW;
 		}
 		
-		roomMemberSvc.insertGroupMember(inGroup.getRoom_id(), user.getMember_id());
+		roomMemberSvc.insertRoomMember(inRoom.getRoom_id(), user.getMember_id());
 
-		return REDIRECT_GROUP_LIST;
+		return REDIRECT_USER_HOME;
 	}
 	
-	@RequestMapping("/room")
+	@RequestMapping("/{room_id}/")
 	public String room(@ModelAttribute("user") User user, 
-						@RequestParam("group_id") int group_id, Model model) {
-
-		Room group = RoomSvc.selectGroup(group_id);
-		if(group == null) {
-			return GROUP_LIST;
+			@PathVariable int room_id, Model model) {
+		Room room = RoomSvc.selectRoom(room_id);
+		if(room == null) {
+			return REDIRECT_USER_HOME;
 		}
-		int countMember = roomMemberSvc.countGroupMember(group_id);
-		user.setRoom_id(group_id);
+		int countMember = roomMemberSvc.countRoomMember(room_id);
+		user.setRoom_id(room_id);
 		
-		List<RoomMember> memberList = roomMemberSvc.getGroupMember(group_id);
+		List<RoomMember> memberList = roomMemberSvc.getRoomMember(room_id);
 		
-		model.addAttribute("group", group);
+		model.addAttribute("room", room);
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("countMember", countMember);
 		
-		return GROUP_ROOM;
+		return HOME_VIEW;
 	}
 	
 }

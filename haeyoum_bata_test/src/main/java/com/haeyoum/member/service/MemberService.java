@@ -38,7 +38,7 @@ public class MemberService {
         sendMail.setText(
                 new StringBuffer()
                 .append("<h1>메일인증</h1>")
-                .append("<a href='http://localhost:8080/haeyoum_beta_test/emailConfirm?authKey=")
+                .append("<a href='http://172.30.1.14:8080/haeyoum_beta_test/emailConfirm?authKey=")
                 .append(key)
                 .append("' target='_blank'>이메일 인증 확인</a>")
                 .toString());

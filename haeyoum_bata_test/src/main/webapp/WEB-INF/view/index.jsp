@@ -44,9 +44,9 @@
 		    			</h2>
 		    			<!-- sign-up form -->
 		    			<form class="inputForm" action="${pageContext.request.contextPath}/sign-up" method="post">
-							<input type="email" class="form-control input-lg" name="m_email" placeholder="인증메일이 발송되니 확인해주세요" required>
-							<input type="password" class="form-control input-lg" name="m_password" placeholder="비밀번호를 입력해주세요" required>
-							<input type="text" class="form-control input-lg" name="m_name" placeholder="이름을 입력해주세요" required>
+							<input type="email" class="form-control input-lg" name="email" placeholder="인증메일이 발송되니 확인해주세요" required>
+							<input type="password" class="form-control input-lg" name="password" placeholder="비밀번호를 입력해주세요" required>
+							<input type="text" class="form-control input-lg" name="user_name" placeholder="이름을 입력해주세요" required>
 						
 							<button id="sub" class="btn btn-sign-up btn-lg btn-block m-t-10" >회원가입</button>
 		    			</form>
@@ -126,13 +126,13 @@
 	    <footer class="footer">
 	      <div class="container">
 	      	<ul>
-	      	 <li>블로그</li>
-			 <li>광고</li>
-	      	 <li>이용약관</li>
-	      	 <li>개인보호처리방침</li>
-	      	 <li>활동정책</li>
-	      	 <li>개발자</li>
-	      	 <li>도움말</li>
+	      	 <li><a href="#">블로그</a></li>
+			 <li><a href="#">광고</a></li>
+	      	 <li><a href="#">이용약관</a></li>
+	      	 <li><a href="#">개인보호처리방침</a></li>
+	      	 <li><a href="#">활동정책</a></li>
+	      	 <li><a href="#">개발자</a></li>
+	      	 <li><a href="#">도움말</a></li>
 	        </ul>
 	        <ul>
 	      	 <li class="brand">HAEYOUM © 2018</li>
@@ -146,8 +146,6 @@
 			var msg = '${msg}';
 			if( msg.length != 0 ) {
 				alert(msg);
-				var submit = this.form.submit();
-				$('#sub').attr('disabled',false);
 			}
 		</script>
 	</body>

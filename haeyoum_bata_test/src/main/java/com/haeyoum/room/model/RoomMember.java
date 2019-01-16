@@ -8,6 +8,12 @@ public class RoomMember {
 	public RoomMember() {
 	}
 
+	public RoomMember(int room_id, String member_id) {
+		super();
+		this.room_id = room_id;
+		this.member_id = member_id;
+	}
+
 	public int getRoom_id() {
 		return room_id;
 	}

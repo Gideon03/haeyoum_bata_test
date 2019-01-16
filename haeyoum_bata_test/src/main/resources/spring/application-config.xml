@@ -17,7 +17,7 @@
 		<property name="driverClassName">
 			<value>com.mysql.cj.jdbc.Driver</value>
 		</property>
-		<property name="url" value="jdbc:mysql://192.168.10.9:3306/haeyoum?serverTimezone=Asia/Seoul&amp;useSSL=false" />
+		<property name="url" value="jdbc:mysql://172.30.1.14:3306/haeyoum?serverTimezone=Asia/Seoul&amp;useSSL=false" />
 		<property name="username" value="haeyoum" />
 		<property name="password" value="Haeyoum" />
 	</bean>

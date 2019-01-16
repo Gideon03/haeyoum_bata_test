@@ -1,19 +1,19 @@
 package com.haeyoum.room.model;
 
 public class RoomList {
-	private int id;
+	private int room_id;
 	private String title;
 	private String intro;
 	
 	public RoomList() {
 	}
 
-	public int getId() {
-		return id;
+	public int getRoom_id() {
+		return room_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
 	}
 
 	public String getTitle() {

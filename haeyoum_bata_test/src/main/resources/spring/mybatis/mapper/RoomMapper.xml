@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="room.model.RoomMapper">
+
+	<select id="selectRoom" resultType="room">
+	select * from haeyoums 
+	where room_id = #{room_id}
+	</select>
+	
+	<select id="inviteRoom" parameterType="hashmap" resultType="room">
+	select * from haeyoums 
+	where roomkey like #{roomkey}
+	</select>
+	
+	<select id="confirmKey" resultType="int">
+	select count(*) from haeyoums 
+	where roomkey like #{roomkey}
+	</select>
+	
+	<select id="roomList" parameterType="hashmap" resultType="roomList">
+	select room_id, title, intro 
+	from (haeyoums) join (haeyoum_member)
+	using (room_id)
+	where member_id like #{member_id}
+	limit #{stPage}, 11;
+	</select>
+	
+	<insert id="insertRoom"  useGeneratedKeys="true" keyProperty="room_id" parameterType="room">
+	insert into haeyoums (title, intro, max, room_master, roomkey, regdate)
+	values (#{title}, #{intro}, #{max}, #{room_master}, #{roomkey}, now())
+	</insert>
+	
+	<update id="updateRoom" parameterType="room">
+	update haeyoums 
+	set title = #{title} and intro = #{intro}
+	where room_id = #{room_id}
+	</update>
+		
+	<delete id="deleteRoom" parameterType="room">
+	delete from haeyoums 
+	where room_id = #{room_id}
+	</delete>
+	
+</mapper>

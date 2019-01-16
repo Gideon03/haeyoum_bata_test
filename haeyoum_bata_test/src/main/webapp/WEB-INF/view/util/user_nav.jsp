@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/">
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/user/home">
 	  	<img alt="해 윰" src="${pageContext.request.contextPath}/resources/images/brand.png">
 	  </a>
     </div>
@@ -34,9 +34,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">내 정보</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/edit">내 정보</a></li>
             <li class="divider"></li>
-            <li><a href="#">초대코드 입력</a></li>
+            <li><a href="${pageContext.request.contextPath}/haeyoum/invite">초대코드 입력</a></li>
             <li class="divider"></li>
             <li><a href="#">로그아웃</a></li>
           </ul>

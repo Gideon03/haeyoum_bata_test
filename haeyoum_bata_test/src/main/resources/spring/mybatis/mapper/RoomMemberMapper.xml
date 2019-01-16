@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="room.model.RoomMemberMapper">
+
+	<select id="selectRoomMember" resultType="roomMember">
+	select * from haeyoum_member
+	where room_id = #{room_id}
+	</select>
+	
+	<select id="confirmRoomMember" parameterType="roomMember" resultType="int">
+	select count(*) from haeyoum_member
+	where room_id = #{room_id} and room_member_id like #{member_id}
+	</select>
+	
+	<select id="countRoomMember" resultType="int">
+	select count(*) from haeyoum_member
+	where room_id = #{room_id}
+	</select>
+	
+	<insert id="insertRoomMember" parameterType="roomMember">
+	insert into haeyoum_member
+	values (#{room_id}, #{member_id})
+	</insert>
+	
+	<update id="updateRoomMember" parameterType="roomMember">
+	update haeyoum_member
+	set member_id = #{member_id} 
+	where room_id = #{room_id} and member_id = #{member_id}
+	</update>
+	
+	<delete id="deleteRoomMember" parameterType="roomMember">
+	delete from haeyoum_member
+	where room_id = #{room_id} and member_id = #{member_id}
+	</delete>
+	
+</mapper>

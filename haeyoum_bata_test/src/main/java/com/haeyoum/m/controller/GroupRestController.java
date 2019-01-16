@@ -31,9 +31,9 @@ public class GroupRestController {
 	public String groupList(@ModelAttribute("user") User user, Model model,HttpSession session,RoomList groupList) {
 		user.setRoom_id(0);
 		int stPage = 0;
-		groupList.setId(user.getRoom_id());
+		groupList.setRoom_id(user.getRoom_id());
 		
-		List<RoomList> list = groupSvc.groupList(stPage, user.getMember_id());
+		List<RoomList> list = groupSvc.roomList(stPage, user.getMember_id());
 	
 		model.addAttribute("groupList", list);
 		
@@ -50,7 +50,7 @@ public class GroupRestController {
 		
 		for (int i = 1 ; i <= 100 ; i++) {
 			RoomList group = new RoomList();
-			group.setId(i);
+			group.setRoom_id(i);
 			group.setTitle("group_" + i);
 			list.add(group);
 		}

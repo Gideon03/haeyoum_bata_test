@@ -38,11 +38,11 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- websocket 사용을 위한 핸들러클래스 등록 -->
-	<bean id="echoHandler" class="com.haeyoum.handler.EchoHandler" />
+	<bean id="chatHandler" class="com.haeyoum.handler.ChatHandler" />
 	
 	<!-- websocket 핸들러를 등록하는 과정 -->
 	<websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/echo" />
+		<websocket:mapping handler="chatHandler" path="/chat" />
 		<websocket:handshake-interceptors>		
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>			
 		</websocket:handshake-interceptors>
