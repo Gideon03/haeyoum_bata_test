@@ -21,7 +21,7 @@
 		          </p>
 		          <div class="jumbotron">
 		            <h1>${room.title}</h1>
-		            <p>T${room.intro}</p>
+		            <p>${room.intro}</p>
 		          </div>
 		          
 		        </div><!--/.col-xs-12.col-sm-9-->

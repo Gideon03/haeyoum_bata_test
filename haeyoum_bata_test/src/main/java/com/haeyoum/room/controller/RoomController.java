@@ -38,7 +38,7 @@ public class RoomController {
 	// ex) redirect:/update => http://localhost:8080/Haeyoum/update
 	//     redirect:update => http://localhost:8080/Haeyoum/member/update
 	private final String REDIRECT_USER_HOME = "redirect:/user/home";
-	private final String REDIRECT_HAEYOUM_ROOM = "redirect:/haeyoum/room/";
+	private final String REDIRECT_HAEYOUM_ROOM = "redirect:/haeyoum/";
 
 	@Autowired
 	private RoomService RoomSvc;

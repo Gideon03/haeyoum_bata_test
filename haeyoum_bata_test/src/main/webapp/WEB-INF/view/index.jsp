@@ -44,9 +44,9 @@
 		    			</h2>
 		    			<!-- sign-up form -->
 		    			<form class="inputForm" action="${pageContext.request.contextPath}/sign-up" method="post">
-							<input type="email" class="form-control input-lg" name="m_email" placeholder="인증메일이 발송되니 확인해주세요" required>
-							<input type="password" class="form-control input-lg" name="m_password" placeholder="비밀번호를 입력해주세요" required>
-							<input type="text" class="form-control input-lg" name="m_name" placeholder="이름을 입력해주세요" required>
+							<input type="email" class="form-control input-lg" name="email" placeholder="인증메일이 발송되니 확인해주세요" required>
+							<input type="password" class="form-control input-lg" name="password" placeholder="비밀번호를 입력해주세요" required>
+							<input type="text" class="form-control input-lg" name="user_name" placeholder="이름을 입력해주세요" required>
 						
 							<button id="sub" class="btn btn-sign-up btn-lg btn-block m-t-10" >회원가입</button>
 		    			</form>

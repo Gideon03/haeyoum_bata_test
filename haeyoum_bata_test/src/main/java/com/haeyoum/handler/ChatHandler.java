@@ -13,7 +13,7 @@ import com.haeyoum.util.DateUtil;
 
 import java.util.*;
 
-public class EchoHandler extends TextWebSocketHandler {
+public class ChatHandler extends TextWebSocketHandler {
 	
 	@Autowired
 	private ChatService chatSvc;
