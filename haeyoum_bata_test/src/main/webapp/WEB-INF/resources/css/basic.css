@@ -6,7 +6,9 @@ html {
 body {
  background-color: #f8f8f8;
 }
-
+div {
+ font-family: 'Nanum Gothic', sans-serif;
+}
 header .container {
  padding-top: 5px;
  padding-bottom: 5px;
@@ -37,6 +39,12 @@ header .brand{
  padding-top: 70px;
  padding-bottom: 110px;
 }
+
+.roomArea{
+ padding-top: 120px;
+ padding-bottom: 110px;
+}
+
 .mainArea {
  height: 600px;
  width: 100%;
@@ -57,9 +65,7 @@ header .brand{
 }
 
 .h-list {
- position:relative;
  height: 200px;
- margin: 20px auto;
 }
 .h-list h2{
  text-overflow:ellipsis;
@@ -68,6 +74,7 @@ header .brand{
  overflow:hidden;
 }
 .h-list p{
+height: 60px;
 overflow: hidden;
 text-overflow: ellipsis;
 display: -webkit-box;
@@ -161,6 +168,9 @@ line-height: 1.5em;
 .sub-con img {
  width: 100%;
 }
+footer a, a:hover {
+ color: #ccc;
+}
 .footer {
  background-color: #45546a;
 }
@@ -184,6 +194,11 @@ line-height: 1.5em;
 .navbar-brand>img {
  width: auto;
  height: 100%;
+}
+.room-nav {
+ margin-top: 50px;
+ left: auto;
+ right: auto;
 }
 
 @media (max-width: 768px){

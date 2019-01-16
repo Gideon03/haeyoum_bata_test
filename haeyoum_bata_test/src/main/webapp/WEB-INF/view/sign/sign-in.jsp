@@ -20,7 +20,7 @@
    			<form class="inputForm" action="${pageContext.request.contextPath}/sign-in" method="post">
 				<input type="email" class="form-control input-lg" name="email" placeholder="메일주소를 입력해주세요" required>
 				<input type="password" class="form-control input-lg" name="password" placeholder="비밀번호를 입력해주세요" required>
-			
+				<div id="err" class="alert alert-danger" role="alert" hidden="true">aaa</div>
 				<button class="btn btn-sign-up btn-lg btn-block m-t-10">로그인</button>
    			</form>
    			<div class="btnGroup m-t-10">
@@ -44,5 +44,20 @@
 	
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		var idError = ${errors.idError};
+		var pwError = ${errors.pwError};
+		var notConfirmError = ${errors.notConfirmUser};
+		if(idError){
+			$('#err').text('아이디를 확인해주세요.');
+			$('#err').show();
+		} else if (pwError){
+			$('#err').text('비밀번호를 확인해주세요.');
+			$('#err').show();
+		} else if (notConfirmError){
+			$('#err').text('인증이 필요한 사용자입니다. 이메일 인증을 진행해주세요.');
+			$('#err').show();
+		}
+	</script>
 </body>
 </html>

@@ -30,11 +30,11 @@ public class ChatService {
 		return null;
 	}
 	
-	public List<ChatReq> chatList(HashMap<String, Object> map) {
+	public List<ChatReq> chatList(int room_id) {
 		
 		List<ChatReq> reqChatList = new ArrayList<>();
 		// 날짜 변환작업
-		for( Chat chat : chatDAO.chatList(map)) {
+		for( Chat chat : chatDAO.chatList(room_id)) {
 			reqChatList.add(
 					new ChatReq(chat.getRoom_id(), 
 							chat.getChat_id(), 

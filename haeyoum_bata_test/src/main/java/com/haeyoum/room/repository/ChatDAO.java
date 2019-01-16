@@ -3,15 +3,11 @@ package com.haeyoum.room.repository;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.haeyoum.room.model.Chat;
-import com.haeyoum.room.model.Room;
-import com.haeyoum.room.model.RoomList;
 
 @Repository
 public class ChatDAO {
@@ -19,7 +15,7 @@ public class ChatDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	private String strName = "group.model.ChatMapper";
+	private String strName = "room.model.ChatMapper";
 
 	public int insertChat(Chat chat) {
 		int result=0;
@@ -31,8 +27,8 @@ public class ChatDAO {
 		return result;
 	}
 	
-	public List<Chat> chatList(HashMap<String, Object> map) {
-		return sqlSession.selectList(strName + ".msgList", map);
+	public List<Chat> chatList(int room_id) {
+		return sqlSession.selectList(strName + ".msgList", room_id);
 	} 
 	
 	public Chat selectChat(HashMap<String, Object> map) {

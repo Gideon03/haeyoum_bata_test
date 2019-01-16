@@ -38,7 +38,7 @@
             <li class="divider"></li>
             <li><a href="${pageContext.request.contextPath}/haeyoum/invite">초대코드 입력</a></li>
             <li class="divider"></li>
-            <li><a href="#">로그아웃</a></li>
+            <li><a href="${pageContext.request.contextPath}/sign-out">로그아웃</a></li>
           </ul>
         </li>
       </ul>

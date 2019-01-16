@@ -43,7 +43,7 @@
 				    <label for="input_key" class="col-sm-2 control-label">초대코드</label>
 				    <div class="col-sm-10">
 				      <input id="input_key" type="hidden" name="roomkey">
-				      <h4 id="key" hidden="true"><span id="key-val" class="label label-primary"></span></h4>
+				      <h4 id="key" hidden="true"><span id="key-val" class="label label-success"></span></h4>
 				      <button class="btn btn-default" type="button" id="btn">생성하기</button>
 				      <c:if test="${errors.emptyCode}">
 							<span id="key-err" class="label label-warning">
