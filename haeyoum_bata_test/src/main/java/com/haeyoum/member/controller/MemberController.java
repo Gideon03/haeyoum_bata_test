@@ -21,6 +21,7 @@ import com.haeyoum.member.model.MemberInfo;
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.FileUploadService;
 import com.haeyoum.member.service.MemberService;
+import com.haeyoum.room.model.Room;
 import com.haeyoum.room.model.RoomList;
 import com.haeyoum.room.service.RoomService;
 
@@ -42,6 +43,15 @@ public class MemberController {
 	
 	@RequestMapping("/home")
 	public String userHome(@ModelAttribute("user") User user, Model model) {
+		user.setRoom_id(0);
+		int stPage = 0;
+		
+		List<RoomList> list = RoomSvc.roomList(stPage, user.getMember_id());
+		for (RoomList room : list) {
+			System.out.println(room.getRoom_id());
+		}
+		model.addAttribute("list", list);
+		
 		return USER_HOME_VIEW;
 	}
 	
@@ -52,11 +62,11 @@ public class MemberController {
 			@ModelAttribute("user") User user) {
 		stPage *= 11;
 
-		Map<String, List<RoomList>> groupList = new HashMap<>();
+		Map<String, List<RoomList>> roomList = new HashMap<>();
 		List<RoomList> list = RoomSvc.roomList(stPage, user.getMember_id());
 		
-		groupList.put("list", list);
-		return groupList;
+		roomList.put("list", list);
+		return roomList;
 	}
 	
 	// 파일업로드를 위한 기본경로 설정

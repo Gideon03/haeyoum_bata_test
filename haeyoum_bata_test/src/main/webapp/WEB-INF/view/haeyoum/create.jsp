@@ -46,12 +46,12 @@
 				      <h4 id="key" hidden="true"><span id="key-val" class="label label-primary"></span></h4>
 				      <button class="btn btn-default" type="button" id="btn">생성하기</button>
 				      <c:if test="${errors.emptyCode}">
-							<span id="key-val" class="label label-warning">
+							<span id="key-err" class="label label-warning">
 								초대코드를 생성하세요.
 							</span>
 						</c:if>
 						<c:if test="${errors.errorCode}">
-							<span id="key-val" class="label label-danger">
+							<span id="key-err" class="label label-danger">
 								초대코드 발급중 오류가 발생하였습니다 관리자에게 문의하세요.
 							</span>
 						</c:if>
@@ -74,13 +74,14 @@
 			</form>
 			
         </div>
-		        <!-- footer bar -->
+		<!-- footer bar -->
 		<%@ include file="/WEB-INF/view/util/footer.jsp"%>
 		
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 	 		$("#btn").click(function() {
+	 			$("#key-err").hide();
 				$.ajax({
 					type : "POST",
 					url : "${pageContext.request.contextPath}/haeyoum/roomkey",
@@ -98,6 +99,11 @@
 					}
 				});
 			});
+	 		
+	 		var msg = '${msg}';
+			if( msg.length != 0 ) {
+				alert(msg);
+			}
 		</script>
 	</body>
 </html>

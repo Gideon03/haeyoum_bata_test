@@ -35,9 +35,9 @@ function fatchList() {
 			var html = '<div class="col-xs-12 col-lg-4 h-list">'
 				html += '<h2>' + haeyoum.title + '</h2>'
 				html += '<p>' + haeyoum.intro + '</p>'
-				html += '<p class="btn-bottom"><a class="btn btn-default" href="${pageContext.request.contextPath}/haeyoum/?room_id='
+				html += '<p class="btn-bottom"><a class="btn btn-default" href="${pageContext.request.contextPath}/haeyoum/'
 				html += haeyoum.room_id 
-				html += '" role="button">모임 들어가기 &raquo;</a></p>'
+				html += '/" role="button">모임 들어가기 &raquo;</a></p>'
 				html += '</div>'
 			
 				$("#listSection").append(html);

@@ -146,8 +146,6 @@
 			var msg = '${msg}';
 			if( msg.length != 0 ) {
 				alert(msg);
-				var submit = this.form.submit();
-				$('#sub').attr('disabled',false);
 			}
 		</script>
 	</body>
