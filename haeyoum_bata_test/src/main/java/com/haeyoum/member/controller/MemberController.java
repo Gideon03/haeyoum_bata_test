@@ -53,7 +53,7 @@ public class MemberController {
 		stPage *= 11;
 
 		Map<String, List<RoomList>> groupList = new HashMap<>();
-		List<RoomList> list = RoomSvc.groupList(stPage, user.getMember_id());
+		List<RoomList> list = RoomSvc.roomList(stPage, user.getMember_id());
 		
 		groupList.put("list", list);
 		return groupList;

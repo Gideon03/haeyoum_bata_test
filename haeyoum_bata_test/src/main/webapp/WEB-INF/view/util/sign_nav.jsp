@@ -2,7 +2,9 @@
 <header class="navbar navbar-default navbar-static-top">
   <div class="container">
   	<div class="margin-auto brand">
-      <a class="navbar-brand " href="${pageContext.request.contextPath}/">해 윰</a>
+      <a class="navbar-brand " href="${pageContext.request.contextPath}/">
+      	<img alt="해 윰" src="${pageContext.request.contextPath}/resources/images/brand.png">
+      </a>
       </div>
   </div>
 </header>

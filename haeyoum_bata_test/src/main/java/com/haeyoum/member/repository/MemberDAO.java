@@ -23,13 +23,13 @@ public class MemberDAO {
     }
 	
     //email 중복 확인
-    public Member checkEmail(String m_email) throws Exception {
-        return sqlSession.selectOne(nameSpace+".chkEmail", m_email);
+    public Member checkEmail(String email) throws Exception {
+        return sqlSession.selectOne(nameSpace+".chkEmail", email);
     }
  
     //이메일 인증 코드 확인
-    public Member chkAuth(String m_authkey) throws Exception {
-        return sqlSession.selectOne(nameSpace + ".chkAuthkey", m_authkey);
+    public Member chkAuth(String authkey) throws Exception {
+        return sqlSession.selectOne(nameSpace + ".chkAuthkey", authkey);
     }
     
     //인증 후 계정 활성화
@@ -38,8 +38,8 @@ public class MemberDAO {
     }
     
     //로그인 아이디 찾기
-    public Member selectByUser(String m_email) throws Exception {
-        return sqlSession.selectOne(nameSpace+".selectByUser", m_email);
+    public Member selectByUser(String email) throws Exception {
+        return sqlSession.selectOne(nameSpace+".selectByUser", email);
     }
     
 //	------------------------------------- Member Info --------------------------------------
@@ -49,8 +49,8 @@ public class MemberDAO {
     }
    
     //유저정보 조회
-    public MemberInfo selectInfo(String m_email) {
-    	return sqlSession.selectOne(nameSpace+".selectInfo", m_email);
+    public MemberInfo selectInfo(String email) {
+    	return sqlSession.selectOne(nameSpace+".selectInfo", email);
     }
     
     //유저정보 변경
@@ -60,18 +60,18 @@ public class MemberDAO {
 
     //	------------------------------------- Member Log --------------------------------------
     //유저 접속정보 생성
-    public int createLog(String m_email) {
-    	return sqlSession.insert(nameSpace+".insertLog", m_email);
+    public int createLog(String email) {
+    	return sqlSession.insert(nameSpace+".insertLog", email);
     }
    
     //유저 접속정보 조회
-    public MemberLog selectLog(String m_email) {
-    	return sqlSession.selectOne(nameSpace+".selectLog", m_email);
+    public MemberLog selectLog(String email) {
+    	return sqlSession.selectOne(nameSpace+".selectLog", email);
     }
     
     //유저 접속정보 변경
-    public int updateLog(String m_email) {
-    	return sqlSession.update(nameSpace+".updateLog", m_email);
+    public int updateLog(String email) {
+    	return sqlSession.update(nameSpace+".updateLog", email);
     }
     
 }

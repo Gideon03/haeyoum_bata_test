@@ -61,7 +61,7 @@ public class RoomController {
 		
 		// key 중복값 확인
 		while (true) {
-			int result = RoomSvc.confirmGroup(generateKey);
+			int result = RoomSvc.confirmKey(generateKey);
 
 			if (result == 0) {
 				key = "{\"value\" : \"" + generateKey + "\"}";
@@ -72,30 +72,32 @@ public class RoomController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String roomReg(@ModelAttribute("user") User user, Room group, Model model) {
+	public String roomReg(@ModelAttribute("user") User user, Room room, Model model) {
 
 		HashMap<String, Boolean> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
 
-		if (group.getRoomkey() == null || group.getRoomkey().trim().length() == 0) {
+		if (room.getRoomkey() == null || room.getRoomkey().trim().length() == 0) {
 			errors.put("emptyCode", Boolean.TRUE);
 		} 
-		if (group.getRoomkey().equals("errorCode")) {
+		if (room.getRoomkey().equals("errorCode")) {
 			errors.put("errorCode", Boolean.TRUE);
 		}
 		if (!errors.isEmpty()) {
 			return CREATA_VIEW;
 		}
-		
+		System.out.println(room.getTitle());
 		try {
-			group.setRoom_master(memberSvc.selectByUser(user.getMember_id()).getUser_name());
+			room.setRoom_master(user.getMember_id());
+			Room newRoom = RoomSvc.createRoom(room);
+			newRoom.setRoom_master(memberSvc.selectByUser(user.getMember_id()).getUser_name());
+			
+			user.setRoom_id(newRoom.getRoom_id()); 
+			model.addAttribute("room", newRoom);
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		Room newGroup = RoomSvc.createGroup(group);
-
-		user.setRoom_id(newGroup.getRoom_id()); 
-		model.addAttribute("group", newGroup);
+		}		
 
 		return GROUP_CONFIRM;
 	}
@@ -109,7 +111,7 @@ public class RoomController {
 	@RequestMapping("/inviteCode/{inviteCode}")
 	public String confirmCode(@PathVariable("inviteCode") String reqCode) {
 		
-		int result = RoomSvc.confirmGroup(reqCode);
+		int result = RoomSvc.confirmKey(reqCode);
 		String code = "{\"value\" : \"" + result + "\"}";
 		
 		return code;
@@ -129,7 +131,7 @@ public class RoomController {
 			errors.put("errorCode", Boolean.TRUE);
 		}
 		
-		Room inGroup = RoomSvc.inviteGroup(reqCode, user.getMember_id());
+		Room inGroup = RoomSvc.inviteRoom(reqCode, user.getMember_id());
 		if(inGroup == null) {
 			errors.put("emptyGroup", Boolean.TRUE);
 		}
@@ -148,7 +150,7 @@ public class RoomController {
 			return GROUP_INVITE;
 		}
 		
-		roomMemberSvc.insertGroupMember(inGroup.getRoom_id(), user.getMember_id());
+		roomMemberSvc.insertRoomMember(inGroup.getRoom_id(), user.getMember_id());
 
 		return REDIRECT_GROUP_LIST;
 	}
@@ -157,7 +159,7 @@ public class RoomController {
 	public String room(@ModelAttribute("user") User user, 
 						@RequestParam("group_id") int group_id, Model model) {
 
-		Room group = RoomSvc.selectGroup(group_id);
+		Room group = RoomSvc.selectRoom(group_id);
 		if(group == null) {
 			return GROUP_LIST;
 		}

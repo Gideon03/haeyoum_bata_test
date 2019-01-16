@@ -6,6 +6,7 @@ public class Room {
 	
 	private int room_id;
 	private String title;
+	private String intro;
 	private int max;
 	private String room_master;
 	private String roomkey;
@@ -14,9 +15,10 @@ public class Room {
 	public Room() {
 	}
 
-	public Room(int room_id, String title, int max, String room_master, String roomkey, Date regdate) {
+	public Room(int room_id, String title, String intro, int max, String room_master, String roomkey, Date regdate) {
 		this.room_id = room_id;
 		this.title = title;
+		this.intro = intro;
 		this.max = max;
 		this.room_master = room_master;
 		this.roomkey = roomkey;
@@ -37,6 +39,14 @@ public class Room {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 
 	public int getMax() {
