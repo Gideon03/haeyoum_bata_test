@@ -4,24 +4,24 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="group.model.GroupMapper">
+<mapper namespace="room.model.RoomMapper">
 
-	<select id="selectGroup" parameterType="hashmap" resultType="room">
+	<select id="selectRoom" parameterType="hashmap" resultType="room">
 	select * from haeyoum.group 
 	where room_id = #{room_id}
 	</select>
 	
-	<select id="inviteGroup" parameterType="hashmap" resultType="room">
+	<select id="inviteRoom" parameterType="hashmap" resultType="room">
 	select * from haeyoums 
 	where roomkey like #{roomkey}
 	</select>
 	
-	<select id="confirmCode" parameterType="hashmap" resultType="int">
+	<select id="confirmKey" resultType="int">
 	select count(*) from haeyoums 
 	where roomkey like #{roomkey}
 	</select>
 	
-	<select id="groupList" parameterType="hashmap" resultType="roomList">
+	<select id="roomList" parameterType="hashmap" resultType="roomList">
 	select room_id, title, intro 
 	from (haeyoums) join (haeyoum_member)
 	using (room_id)
@@ -29,22 +29,20 @@
 	limit #{stPage}, 11;
 	</select>
 	
-	<insert id="insertGroup"  useGeneratedKeys="true" keyProperty="group_id" parameterType="room">
-	insert into haeyoum.group (group_name, group_max, group_regdate, group_admin_id, group_code)
-	values (#{group_name}, #{group_max}, now(), #{group_admin_id}, #{group_code})
+	<insert id="insertRoom"  useGeneratedKeys="true" keyProperty="room_id" parameterType="room">
+	insert into haeyoums (title, intro, max, room_master, roomkey, regdate)
+	values (#{title}, #{intro}, #{max}, #{room_master}, #{roomkey}, now())
 	</insert>
 	
-	<update id="updateGroup" parameterType="room">
-	update haeyoum.group 
-	set group_name = #{group_name} 
-	where group_id = #{group_id}
+	<update id="updateRoom" parameterType="room">
+	update haeyoums 
+	set title = #{title} and intro = #{intro}
+	where room_id = #{room_id}
 	</update>
 		
-	<delete id="deleteGroup" parameterType="room">
-	delete from haeyoum.group 
-	where group_id = #{group_id}
+	<delete id="deleteRoom" parameterType="room">
+	delete from haeyoums 
+	where room_id = #{room_id}
 	</delete>
-	
-	
 	
 </mapper>

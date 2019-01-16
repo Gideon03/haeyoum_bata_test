@@ -14,71 +14,90 @@
 		<%@ include file="/WEB-INF/view/util/user_nav.jsp"%>
 		
 		<div class="container userArea">
-			<div class="row row-offcanvas row-offcanvas-right">
 
-		        <div class="col-xs-12 col-sm-9">
-					<form class="login100-form validate-form flex-sb flex-w" action="${pageContext.request.contextPath}/group/regist" method="post">
-				 		<span class="login100-form-title p-b-32" style="font-family: 'Jua', sans-serif;">
-							그룹생성
-						</span>
-				 		<span class="txt1 p-b-11" >
-							그룹이름
-						</span>
-						<div class="wrap-input100 validate-input m-b-36" data-validate = "Group name is required">
-							<input class="input100" type="text" name="group_name" autofocus>
-						  	<span class="focus-input100"></span>
-						</div>
-						
-						<span class="txt1 p-b-11" >
-							최대인원
-						</span>
-						<div class="wrap-input100 validate-input m-b-36">
-							<select class="form-control" name="group_max">
-								<option value="2" selected="selected">2 명</option>
-								<option value="3">3 명</option>
-								<option value="4">4 명</option>
-								<option value="5">5 명</option>
-								<option value="6">6 명</option>
-								<option value="7">7 명</option>
-								<option value="8">8 명</option>
-								<option value="9">9 명</option>
-								<option value="10">10 명</option>
-							</select>
-						</div>
-				 		
-				 		<span class="txt1 p-b-11" >
-							그룹코드
-						</span>
-						<div class="wrap-input100 m-b-36" style="border: 0;">
-							<c:if test="${errors.emptyCode}">
-								<label class="input100" id="code">
-									초대코드를 생성하세요.
-								</label>
-							</c:if>
-							<c:if test="${errors.errorCode}">
-								<label class="input100" id="code">
+			<h1>해윰 만들기</h1>
+			<form class="form-horizontal" action="${pageContext.request.contextPath}/haeyoum/create" method="post">
+		 		<div class="form-group">
+				    <label for="title" class="col-sm-2 control-label">방 이름</label>
+				    <div class="col-sm-10">
+				      <input name="title" type="text" class="form-control" id="title" placeholder="Title" required>
+				    </div>
+				  </div><!-- end form-group -->
+				  <div class="form-group">
+				    <label for="max" class="col-sm-2 control-label">방 인원</label>
+				    <div class="col-sm-10">
+				      <select name="max" class="form-control" id="max">
+							<option value="2" selected="selected">2 명</option>
+							<option value="3">3 명</option>
+							<option value="4">4 명</option>
+							<option value="5">5 명</option>
+							<option value="6">6 명</option>
+							<option value="7">7 명</option>
+							<option value="8">8 명</option>
+							<option value="9">9 명</option>
+							<option value="10">10 명</option>
+						</select>
+				    </div>
+				  </div><!-- end form-group -->
+		 		<div class="form-group">
+				    <label for="input_key" class="col-sm-2 control-label">초대코드</label>
+				    <div class="col-sm-10">
+				      <input id="input_key" type="hidden" name="roomkey">
+				      <h4 id="key" hidden="true"><span id="key-val" class="label label-primary"></span></h4>
+				      <button class="btn btn-default" type="button" id="btn">생성하기</button>
+				      <c:if test="${errors.emptyCode}">
+							<span id="key-val" class="label label-warning">
+								초대코드를 생성하세요.
+							</span>
+						</c:if>
+						<c:if test="${errors.errorCode}">
+							<span id="key-val" class="label label-danger">
 								초대코드 발급중 오류가 발생하였습니다 관리자에게 문의하세요.
-								</label>
-							</c:if>
-							
-							<input id="input_code" type="hidden" name="group_code">
-						  	<button class="login100-form-btn" type="button" id="btn">초대코드 생성</button>
-						</div>
-							
-						<div class="container-login300-form-btn">
-							<button class="login300-form-btn" >만들기</button>
-							<button class="login100-form-btn" type="button" onclick="history.back()">
-								돌아가기
-							</button>
-						</div>
-					</form>
-            	</div>
-        	</div>
+							</span>
+						</c:if>
+				    </div>
+				  </div><!-- end form-group -->
+				  <div class="form-group">
+				    <label for="intro" class="col-sm-2 control-label">방 설명</label>
+				    <div class="col-sm-10">
+				      <textarea name="intro" id="intro" class="form-control" rows="3" placeholder="intro" required></textarea>
+				    </div>
+				  </div><!-- end form-group -->
+				<div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      <button type="submit" class="btn btn-default">만들기</button>
+				      <button class="btn btn-default" type="button" onclick="history.back()">
+						돌아가기
+						</button>
+				    </div>
+				  </div>
+			</form>
+			
         </div>
 		        <!-- footer bar -->
 		<%@ include file="/WEB-INF/view/util/footer.jsp"%>
 		
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+	 		$("#btn").click(function() {
+				$.ajax({
+					type : "POST",
+					url : "${pageContext.request.contextPath}/haeyoum/roomkey",
+					dataType : "json",
+					success : function(code) {
+						$("#btn").hide();
+						$("#key").show();
+						$("#key-val").text(code.value);
+						$("#input_key").val(code.value);
+					},
+					error : function() {
+						$("#key").hide();
+						$("#btn").show();
+						$("#input_key").val("errorCode");
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

@@ -33,7 +33,7 @@ public class GroupRestController {
 		int stPage = 0;
 		groupList.setId(user.getRoom_id());
 		
-		List<RoomList> list = groupSvc.groupList(stPage, user.getMember_id());
+		List<RoomList> list = groupSvc.roomList(stPage, user.getMember_id());
 	
 		model.addAttribute("groupList", list);
 		

@@ -2,13 +2,13 @@
 	<footer class="footer sti-foot">
       <div class="container">
       	<ul>
-      	 <li>블로그</li>
-		 <li>광고</li>
-      	 <li>이용약관</li>
-      	 <li>개인보호처리방침</li>
-      	 <li>활동정책</li>
-      	 <li>개발자</li>
-      	 <li>도움말</li>
+      	 <li><a href="#">블로그</a></li>
+		 <li><a href="#">광고</a></li>
+      	 <li><a href="#">이용약관</a></li>
+      	 <li><a href="#">개인보호처리방침</a></li>
+      	 <li><a href="#">활동정책</a></li>
+      	 <li><a href="#">개발자</a></li>
+      	 <li><a href="#">도움말</a></li>
         </ul>
         <ul>
       	 <li class="brand">HAEYOUM © 2018</li>

@@ -9,52 +9,50 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.haeyoum.room.model.Room;
 import com.haeyoum.room.model.RoomList;
-import com.haeyoum.room.repository.GroupDAO;
+import com.haeyoum.room.repository.RoomDAO;
 
 @Service
 public class RoomService {
 	
 	@Autowired
-	private GroupDAO groupDAO;
+	private RoomDAO roomDAO;
 	@Autowired
-	private RoomMemberService groupMemberSvc;
+	private RoomMemberService roomMemberSvc;
 	
 	@Transactional
-	public Room createGroup(Room room) {
+	public Room createRoom(Room room) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int result = groupDAO.insertGroup(room);
+		int result = roomDAO.insertRoom(room);
 		if (result != 0) {
-			groupMemberSvc.insertGroupMember(room.getRoom_id(), room.getRoom_master());
+			roomMemberSvc.insertRoomMember(room.getRoom_id(), room.getRoom_master());
 			map.put("room_id", room.getRoom_id());
-			room = groupDAO.selectGroup(map);
+			room = roomDAO.selectRoom(map);
 		}
 		return room;
 	}
 	
-	public Room selectGroup(int room_id) {
+	public Room selectRoom(int room_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("room_id", room_id);
-		return groupDAO.selectGroup(map);
+		return roomDAO.selectRoom(map);
 	}
 	
-	public int confirmGroup(String roomkey) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("roomkey", roomkey);
-		return groupDAO.confirmCode(map);
+	public int confirmKey(String roomkey) {
+		return roomDAO.confirmKey(roomkey);
 	}
 	 
-	public List<RoomList> groupList(int stPage, String member_id){
+	public List<RoomList> roomList(int stPage, String member_id){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("stPage", stPage);
 		map.put("member_id", member_id);
-		return groupDAO.groupList(map);
+		return roomDAO.roomList(map);
 	}
 	
-	public Room inviteGroup(String roomkey, String member_id) {
+	public Room inviteRoom(String roomkey, String member_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("roomkey", roomkey);
 		map.put("member_id", member_id);
-		return groupDAO.inviteGroup(map);
+		return roomDAO.inviteRoom(map);
 	}
 
 }

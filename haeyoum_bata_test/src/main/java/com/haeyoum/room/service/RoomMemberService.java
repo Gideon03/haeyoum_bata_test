@@ -15,7 +15,7 @@ public class RoomMemberService {
 	@Autowired
 	private GroupMemberDAO GMDAO;
 	
-	public int insertGroupMember(int group_id, String member_id) {
+	public int insertRoomMember(int group_id, String member_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("group_id", group_id);
 		map.put("group_member_id", member_id);
