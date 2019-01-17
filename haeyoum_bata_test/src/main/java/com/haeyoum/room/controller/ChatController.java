@@ -1,6 +1,5 @@
 package com.haeyoum.room.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +30,7 @@ public class ChatController {
 			return GROUP_LIST;
 		}
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("group_id", user.getRoom_id());
-		
-		List<ChatReq> reqChatList = chatSvc.chatList(map);
+		List<ChatReq> reqChatList = chatSvc.chatList(user.getRoom_id());
 		
 		model.addAttribute("msgList", reqChatList);
 		return GROUP_CHAT;

@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- nav bar -->
-		<%@ include file="/WEB-INF/view/util/sign_nav.jsp"%>
+	<%@ include file="/WEB-INF/view/util/user_nav.jsp"%>
 
 	<div class="container">
 		<div class="col-xs-12 col-sm-12 col-lg-6 margin-auto">
@@ -20,22 +20,6 @@
    			<form class="inputForm" action="${pageContext.request.contextPath}/sign-out" method="post">
 				<button class="btn btn-sign-up btn-lg btn-block m-t-10">로그아웃</button>
    			</form>
-   			<div class="btnGroup m-t-10">
-				<button type="button" class="btn btn-default btn-lg btn-block">
-				  <span class="glyphicon" aria-hidden="true">
-				  	<img class="sign-up-icon" src="${pageContext.request.contextPath}/resources/images/naver_icon.PNG" alt="No Image...">
-				  </span>
-				  <small>네이버로 로그인</small>
-				</button>
-			</div>
-			<div class="btnGroup">
-				<button type="button" class="btn btn-default btn-lg btn-block">
-				  <span class="glyphicon" aria-hidden="true">
-				  	<img class="sign-up-icon" src="${pageContext.request.contextPath}/resources/images/facebook_icon.png" alt="No Image...">
-				  </span>
-				  <small>페이스북으로 로그인</small>
-				</button>
-			</div>
 		</div>
     </div> <!-- /container -->
 	

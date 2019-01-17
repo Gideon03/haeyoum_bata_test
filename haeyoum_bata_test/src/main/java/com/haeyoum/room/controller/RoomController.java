@@ -17,8 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.haeyoum.member.model.User;
 import com.haeyoum.member.service.MemberService;
+import com.haeyoum.room.model.ChatReq;
 import com.haeyoum.room.model.Room;
 import com.haeyoum.room.model.RoomMember;
+import com.haeyoum.room.service.ChatService;
 import com.haeyoum.room.service.RoomMemberService;
 import com.haeyoum.room.service.RoomService;
 import com.haeyoum.util.TempKey;
@@ -46,6 +48,8 @@ public class RoomController {
 	private RoomMemberService roomMemberSvc;
 	@Autowired
 	private MemberService memberSvc;
+	@Autowired
+	private ChatService chatSvc;
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String createRoom(@ModelAttribute("user") User user) {
@@ -171,6 +175,9 @@ public class RoomController {
 		
 		List<RoomMember> memberList = roomMemberSvc.getRoomMember(room_id);
 		
+		List<ChatReq> reqChatList = chatSvc.chatList(room_id);
+		
+		model.addAttribute("msgList", reqChatList);
 		model.addAttribute("room", room);
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("countMember", countMember);

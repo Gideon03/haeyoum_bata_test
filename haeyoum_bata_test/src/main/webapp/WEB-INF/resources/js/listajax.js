@@ -33,11 +33,15 @@ function fatchList() {
 			$.each(data.list, function(index, haeyoum){
 	
 			var html = '<div class="col-xs-12 col-lg-4 h-list">'
+				html += '<div class="thumbnail h-list">'
+				html += '<div class="caption">'
 				html += '<h2>' + haeyoum.title + '</h2>'
 				html += '<p>' + haeyoum.intro + '</p>'
-				html += '<p class="btn-bottom"><a class="btn btn-default" href="${pageContext.request.contextPath}/haeyoum/'
+				html += '<p><a class="btn btn-default" href="${pageContext.request.contextPath}/haeyoum/'
 				html += haeyoum.room_id 
 				html += '/" role="button">모임 들어가기 &raquo;</a></p>'
+				html += '</div>'
+				html += '</div>'
 				html += '</div>'
 			
 				$("#listSection").append(html);
