@@ -83,7 +83,7 @@ public class SignController {
             rttr.addFlashAttribute("msg", "비정상적인 접근 입니다. 다시 인증해 주세요");
             return HOME;
         }
-        model.addAttribute("user", member);
+        model.addAttribute("user", member.getUser_name());
         return EMAIL_CONFIRM_VIEW;
     }
 //	-------------------------------------------------------------------------------------

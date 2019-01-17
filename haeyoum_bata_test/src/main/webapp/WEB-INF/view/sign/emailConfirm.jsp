@@ -8,10 +8,10 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var userEmail = '${user}';
+		var user = '${user}';
 		var msg = '${msg}';
 		if (msg.length == 0){
-			alert(userEmail.m_email + '님 회원가입을 축하합니다. 이제 로그인이 가능 합니다.');
+			alert(user + '님 회원가입을 축하합니다. 이제 로그인이 가능 합니다.');
 		} else {
 			alert(msg);
 		}

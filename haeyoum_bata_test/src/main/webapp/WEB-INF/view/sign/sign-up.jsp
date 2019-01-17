@@ -18,9 +18,9 @@
    			<h2 class="title">회원가입</h2>
    			<!-- sign-up form -->
    			<form class="inputForm" action="${pageContext.request.contextPath}/sign-up" method="post">
-				<input type="email" class="form-control input-lg" name="email" placeholder="인증메일이 발송되니 확인해주세요" required>
-				<input type="password" class="form-control input-lg" name="password" placeholder="비밀번호를 입력해주세요" required>
-				<input type="text" class="form-control input-lg" name="user_name" placeholder="이름을 입력해주세요" required>
+				<input name="email" type="email" class="form-control input-lg" maxlength="40" placeholder="인증메일이 발송되니 확인해주세요" required>
+				<input name="password" type="password" class="form-control input-lg" pattern="[a-zA-Z0-9]{8,20}" maxlength="20" placeholder="비밀번호를 입력해주세요(최소 8자이상)" required>
+				<input name="user_name" type="text" class="form-control input-lg" maxlength="20" placeholder="이름을 입력해주세요" required>
 			
 				<button class="btn btn-sign-up btn-lg btn-block m-t-10">회원가입</button>
    			</form>
@@ -40,6 +40,9 @@
 				  <small>페이스북으로 가입</small>
 				</button>
 			</div>
+			<p class="text-center m-t-10">이미 가입하셨나요? &nbsp;
+			<a class="text-info" href="${pageContext.request.contextPath}/sign-in"><strong>로그인하기</strong></a>
+			</p>
 		</div>
     </div> <!-- /container -->
 	
