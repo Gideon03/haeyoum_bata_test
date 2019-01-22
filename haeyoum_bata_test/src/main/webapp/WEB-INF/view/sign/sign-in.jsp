@@ -54,13 +54,13 @@
 		var notConfirmError = ${errors.notConfirmUser};
 		if(idError){
 			$('#err').text('아이디를 확인해주세요.');
-			$('#err').css('visibility','visible');;
+			$('#err').css('visibility','visible');
 		} else if (pwError){
 			$('#err').text('비밀번호를 확인해주세요.');
-			$('#err').css('visibility','visible');;
+			$('#err').css('visibility','visible');
 		} else if (notConfirmError){
 			$('#err').text('인증이 필요한 사용자입니다. 이메일 인증을 진행해주세요.');
-			$('#err').css('visibility','visible');;
+			$('#err').css('visibility','visible');
 		}
 	</script>
 </body>

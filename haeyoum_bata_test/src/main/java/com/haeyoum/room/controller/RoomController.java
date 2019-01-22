@@ -33,7 +33,7 @@ public class RoomController {
 
 	private final String CREATA_VIEW = "haeyoum/create";
 	private final String HOME_VIEW = "haeyoum/home";
-	private final String INVITE_VIEW = "haeyoum/inviteUser";
+	private final String INVITE_VIEW = "haeyoum/invite";
 	
 	// redirect 할 때 이동경로에 "/" 존재하면 웹 어플리케이션 기준으로 주소생성
 	// "/" 없으면 현재 페이지 주소값을 이용하여 주소를 생성
@@ -133,16 +133,21 @@ public class RoomController {
 		model.addAttribute("errors", errors);
 
 		if (roomkey == null) {
-			errors.put("emptyCode", Boolean.TRUE);
+			errors.put("emptyKey", Boolean.TRUE);
 		}
-		if (roomkey.equals("errorCode")) {
-			errors.put("errorCode", Boolean.TRUE);
+		if (roomkey.equals("errorKey")) {
+			errors.put("errorKey", Boolean.TRUE);
+			return INVITE_VIEW;
 		}
 		
 		Room inRoom = RoomSvc.inviteRoom(roomkey);
 		if(inRoom == null) {
-			errors.put("emptyGroup", Boolean.TRUE);
+			errors.put("emptyRoom", Boolean.TRUE);
+			return INVITE_VIEW;
 		}
+		
+		System.out.println("invite : "+inRoom.getRoom_id());
+		System.out.println("invite : "+user.getMember_id());
 		 
 		int confirmMember = roomMemberSvc.confirmRoomMember(inRoom.getRoom_id(), user.getMember_id());
 		if (confirmMember != 0) {

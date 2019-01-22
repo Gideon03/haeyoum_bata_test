@@ -13,7 +13,7 @@
 	
 	<select id="confirmRoomMember" parameterType="roomMember" resultType="int">
 	select count(*) from haeyoum_member
-	where room_id = #{room_id} and room_member_id like #{member_id}
+	where room_id = #{room_id} and member_id like #{member_id}
 	</select>
 	
 	<select id="countRoomMember" resultType="int">

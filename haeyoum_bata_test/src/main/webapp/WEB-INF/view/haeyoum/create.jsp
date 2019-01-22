@@ -15,8 +15,8 @@
 		
 		<div class="container userArea">
 
-			<h1>해윰 만들기</h1>
-			<form class="form-horizontal" action="${pageContext.request.contextPath}/haeyoum/create" method="post">
+			<h1 class="text-center">해윰 만들기</h1>
+			<form class="form-horizontal m-t-5" action="${pageContext.request.contextPath}/haeyoum/create" method="post">
 		 		<div class="form-group">
 				    <label for="title" class="col-sm-2 control-label">방 이름</label>
 				    <div class="col-sm-10">
